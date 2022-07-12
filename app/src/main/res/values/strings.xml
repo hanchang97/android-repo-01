@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">repoApp</string>
     <string name="login_github">GitHub 로그인</string>
+    
+    <string name="login_title">What’s In
+        \nMy GitHub</string>
 </resources>

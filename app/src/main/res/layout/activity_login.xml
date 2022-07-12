@@ -6,16 +6,52 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.login.LoginActivity">
+        tools:context=".ui.login.LoginActivity"
+        android:background="@drawable/bg_main">
 
-        <Button
-            android:id="@+id/btn_login"
-            android:layout_width="match_parent"
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/gl_vertical_begin"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="24dp"/>
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/gl_vertical_end"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:orientation="vertical"
+            app:layout_constraintGuide_end="24dp"/>
+
+        <TextView
+            android:id="@+id/tv_login_title"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="@id/gl_vertical_begin"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintVertical_bias="0.1"
+            android:text="@string/login_title"
+            android:textColor="@color/white"
+            android:textSize="40sp"
+            android:fontFamily="@font/outfit_semibold"/>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_login"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginHorizontal="24dp"
             android:layout_marginBottom="80dp"
             android:text="@string/login_github"
-            app:layout_constraintBottom_toBottomOf="parent" />
+            app:shapeAppearanceOverlay="@style/buttonRadius"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:backgroundTint="@color/Primary"
+            android:textColor="@color/white"
+            app:elevation="0dp"
+            app:layout_constraintDimensionRatio="312:48"
+            />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
