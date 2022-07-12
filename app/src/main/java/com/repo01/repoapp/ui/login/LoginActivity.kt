@@ -11,6 +11,7 @@ import com.repo01.repoapp.BuildConfig
 import com.repo01.repoapp.R
 import com.repo01.repoapp.data.network.TokenInterceptor
 import com.repo01.repoapp.databinding.ActivityLoginBinding
+import com.repo01.repoapp.ui.main.MainActivity
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -47,8 +48,14 @@ class LoginActivity : AppCompatActivity() {
 
     private fun observeData() {
         viewModel.message.observe(this) {
-            Toast.makeText(this, it, Toast.LENGTH_SHORT).show()
-            interceptor.setToken(it)
+            if (it != "null") {
+                Toast.makeText(this, it, Toast.LENGTH_SHORT).show()
+                interceptor.setToken(it)
+                startActivity(Intent(this, MainActivity::class.java))
+            }
+            else{
+                Toast.makeText(this, "로그인에 실패했습니다.", Toast.LENGTH_SHORT).show()
+            }
         }
     }
 
