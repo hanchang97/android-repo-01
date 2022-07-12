@@ -1,7 +1,7 @@
 package com.repo01.repoapp.di
 
 import com.repo01.repoapp.BuildConfig
-import com.repo01.repoapp.data.network.LoginRepository
+import com.repo01.repoapp.data.repository.LoginRepository
 import com.repo01.repoapp.data.network.LoginService
 import com.repo01.repoapp.data.network.TokenInterceptor
 import dagger.Module

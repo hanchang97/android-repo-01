@@ -1,5 +1,6 @@
-package com.repo01.repoapp.data.network
+package com.repo01.repoapp.data.repository
 
+import com.repo01.repoapp.data.network.LoginService
 import javax.inject.Inject
 
 class LoginRepository @Inject constructor(
