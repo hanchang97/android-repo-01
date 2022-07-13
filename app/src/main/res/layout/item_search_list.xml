@@ -1,98 +1,113 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:paddingHorizontal="24dp">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <ImageView
-        android:id="@+id/iv_profile"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
-        android:layout_marginTop="16dp"
-        android:background="@drawable/bg_profile"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <data>
 
-    <TextView
-        android:id="@+id/tv_user"
-        android:layout_width="0dp"
+        <variable
+            name="searchItem"
+            type="com.repo01.repoapp.data.model.SearchItemModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:ellipsize="end"
-        android:maxLines="1"
-        android:textColor="@color/grey"
-        app:layout_constraintBottom_toBottomOf="@id/iv_profile"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/iv_profile"
-        app:layout_constraintTop_toTopOf="@id/iv_profile"
-        tools:text="@tools:sample/lorem" />
+        android:paddingHorizontal="24dp">
 
-    <TextView
-        android:id="@+id/tv_title"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:ellipsize="end"
-        android:maxLines="1"
-        android:textColor="@color/white"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@id/tv_user"
-        app:layout_constraintTop_toBottomOf="@id/tv_user"
-        tools:text="@tools:sample/lorem" />
+        <ImageView
+            android:id="@+id/iv_profile"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/bg_profile"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/tv_description"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:textColor="@color/white"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@id/tv_user"
-        app:layout_constraintTop_toBottomOf="@id/tv_title"
-        tools:text="@tools:sample/lorem/random" />
+        <TextView
+            android:id="@+id/tv_user"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="@{searchItem.ownerName}"
+            android:textColor="@color/grey"
+            app:layout_constraintBottom_toBottomOf="@id/iv_profile"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/iv_profile"
+            app:layout_constraintTop_toTopOf="@id/iv_profile"
+            tools:text="@tools:sample/lorem" />
 
-    <ImageView
-        android:id="@+id/iv_like"
-        android:layout_width="18dp"
-        android:layout_height="18dp"
-        android:layout_marginTop="12dp"
-        android:layout_marginBottom="18dp"
-        android:src="@drawable/ic_star"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="@id/tv_user"
-        app:layout_constraintTop_toBottomOf="@id/tv_description"
-        app:tint="@color/yellow" />
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="@{searchItem.repoName}"
+            android:textColor="@color/white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/tv_user"
+            app:layout_constraintTop_toBottomOf="@id/tv_user"
+            tools:text="@tools:sample/lorem" />
 
-    <TextView
-        android:id="@+id/tv_like_count"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="5dp"
-        android:textColor="@color/grey"
-        app:layout_constraintBottom_toBottomOf="@id/iv_like"
-        app:layout_constraintStart_toEndOf="@id/iv_like"
-        app:layout_constraintTop_toTopOf="@id/iv_like"
-        tools:text="123" />
+        <TextView
+            android:id="@+id/tv_description"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@{searchItem.description}"
+            android:textColor="@color/white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/tv_user"
+            app:layout_constraintTop_toBottomOf="@id/tv_title"
+            tools:text="@tools:sample/lorem/random" />
 
-    <ImageView
-        android:id="@+id/iv_language_color"
-        android:layout_width="12dp"
-        android:layout_height="12dp"
-        android:layout_marginStart="12dp"
-        android:background="@drawable/bg_profile"
-        app:layout_constraintBottom_toBottomOf="@id/iv_like"
-        app:layout_constraintStart_toEndOf="@id/tv_like_count"
-        app:layout_constraintTop_toTopOf="@id/iv_like"
-        app:tint="@color/grey" />
+        <ImageView
+            android:id="@+id/iv_like"
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginBottom="18dp"
+            android:src="@drawable/ic_star"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@id/tv_user"
+            app:layout_constraintTop_toBottomOf="@id/tv_description"
+            app:tint="@color/yellow" />
 
-    <TextView
-        android:id="@+id/tv_language"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="5dp"
-        android:textColor="@color/grey"
-        app:layout_constraintBaseline_toBaselineOf="@id/tv_like_count"
-        app:layout_constraintStart_toEndOf="@id/iv_language_color"
-        tools:text="Kotlin" />
+        <TextView
+            android:id="@+id/tv_like_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:text="@{Integer.toString(searchItem.stargazers_count)}"
+            android:textColor="@color/grey"
+            app:layout_constraintBottom_toBottomOf="@id/iv_like"
+            app:layout_constraintStart_toEndOf="@id/iv_like"
+            app:layout_constraintTop_toTopOf="@id/iv_like"
+            tools:text="123" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <ImageView
+            android:id="@+id/iv_language_color"
+            android:layout_width="12dp"
+            android:layout_height="12dp"
+            android:layout_marginStart="12dp"
+            android:background="@drawable/bg_profile"
+            app:layout_constraintBottom_toBottomOf="@id/iv_like"
+            app:layout_constraintStart_toEndOf="@id/tv_like_count"
+            app:layout_constraintTop_toTopOf="@id/iv_like"
+            app:tint="@color/grey" />
+
+        <TextView
+            android:id="@+id/tv_language"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:text="@{searchItem.language}"
+            android:textColor="@color/grey"
+            app:layout_constraintBaseline_toBaselineOf="@id/tv_like_count"
+            app:layout_constraintStart_toEndOf="@id/iv_language_color"
+            tools:text="Kotlin" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
