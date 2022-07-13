@@ -12,13 +12,13 @@ import com.repo01.repoapp.R
 import com.repo01.repoapp.data.network.TokenInterceptor
 import com.repo01.repoapp.databinding.ActivityLoginBinding
 import com.repo01.repoapp.ui.main.MainActivity
+import com.repo01.repoapp.util.Auth
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
 class LoginActivity : AppCompatActivity() {
     private lateinit var binding: ActivityLoginBinding
-    private val redirectUri = "repo://github-auth"
     private val viewModel: LoginViewModel by viewModels()
 
     @Inject
@@ -38,23 +38,23 @@ class LoginActivity : AppCompatActivity() {
     private fun login() {
         val intent = Intent(
             Intent.ACTION_VIEW,
-            Uri.parse(
-                "https://github.com/login/oauth/authorize?client_id=${BuildConfig.GITHUB_CLIENT_ID}" +
-                        "&redirect_uri=$redirectUri"
-            )
+            Uri.parse(Auth.AUTH_BASE_URL).buildUpon()
+                .appendQueryParameter(Auth.AUTH_PARAM_CLIENT_ID, BuildConfig.GITHUB_CLIENT_ID)
+                .appendQueryParameter(Auth.AUTH_PARAM_REDIRECT_URI, Auth.REDIRECT_URI)
+                .appendQueryParameter(Auth.AUTH_PARAM_SCOPE, Auth.SCOPE)
+                .build()
         )
         startActivity(intent)
     }
 
     private fun observeData() {
-        viewModel.message.observe(this) {
-            if (it != "null") {
-                Toast.makeText(this, it, Toast.LENGTH_SHORT).show()
+        viewModel.token.observe(this) {
+            if (it.isNullOrEmpty()) {
+                Toast.makeText(this, R.string.login_fail_message, Toast.LENGTH_SHORT).show()
+            } else {
                 interceptor.setToken(it)
                 startActivity(Intent(this, MainActivity::class.java))
-            }
-            else{
-                Toast.makeText(this, "로그인에 실패했습니다.", Toast.LENGTH_SHORT).show()
+                finish()
             }
         }
     }
@@ -63,10 +63,9 @@ class LoginActivity : AppCompatActivity() {
         super.onResume()
 
         val uri = intent.data
-        if (uri != null && uri.toString().startsWith(redirectUri)) {
-            val code = uri.getQueryParameter("code")
-            if (code != null) {
-                viewModel.getAccessToken(code)
+        if (uri != null && uri.toString().startsWith(Auth.REDIRECT_URI)) {
+            uri.getQueryParameter("code")?.let {
+                viewModel.getAccessToken(it)
             }
         }
     }
