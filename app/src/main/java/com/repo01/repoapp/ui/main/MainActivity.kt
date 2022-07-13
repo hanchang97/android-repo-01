@@ -39,7 +39,7 @@ class MainActivity : AppCompatActivity() {
             tab.text = tabTitles[position]
         }.attach()
 
-        for (i in 0..2) {
+        for (i in tabTitles.indices) {
             val textView = LayoutInflater.from(this).inflate(R.layout.tab_main_title, null) as TextView
             binding.tlSelect.getTabAt(i)?.customView = textView
         }
