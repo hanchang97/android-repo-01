@@ -34,9 +34,11 @@ class IssueFragment : Fragment() {
             filterBarActivate = !filterBarActivate
             if(filterBarActivate){
                 binding.clFilterBar.setBackgroundResource(R.drawable.bg_issue_filter_bar_pressed)
+                binding.ivOption.setImageResource(R.drawable.ic_variant16_up)
             }
             else{
                 binding.clFilterBar.setBackgroundResource(R.drawable.bg_issue_filter_bar_default)
+                binding.ivOption.setImageResource(R.drawable.ic_variant16)
             }
         }
     }
