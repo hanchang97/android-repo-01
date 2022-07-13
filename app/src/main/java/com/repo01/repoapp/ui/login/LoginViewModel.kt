@@ -13,17 +13,17 @@ import javax.inject.Inject
 class LoginViewModel @Inject constructor(
     private val repository: LoginRepository
 ) : ViewModel() {
-    private val _message = MutableLiveData<String>()
-    val message: LiveData<String> = _message
+    private val _token = MutableLiveData<String>()
+    val token: LiveData<String> = _token
 
     fun getAccessToken(code: String) =
         viewModelScope.launch {
             val response = repository.getAccessToken(code = code)
 
             if (response.isSuccessful) {
-                val accessToken = response.body()?.accessToken
-                // 처리
-                _message.value = accessToken ?: "null"
+                response.body()?.let {
+                    _token.value = it.accessToken
+                }
             }
         }
 }
