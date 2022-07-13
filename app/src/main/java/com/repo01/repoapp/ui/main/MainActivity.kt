@@ -1,5 +1,6 @@
 package com.repo01.repoapp.ui.main
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,6 +10,7 @@ import com.google.android.material.tabs.TabLayoutMediator
 import com.repo01.repoapp.R
 import com.repo01.repoapp.databinding.ActivityMainBinding
 import com.repo01.repoapp.ui.main.adapter.ViewPagerAdapter
+import com.repo01.repoapp.ui.search.SearchActivity
 
 class MainActivity : AppCompatActivity() {
 
@@ -23,9 +25,9 @@ class MainActivity : AppCompatActivity() {
         setTabLayoutWithViewPager()
     }
 
-    private fun initView(){
+    private fun initView() {
         binding.ivSearch.setOnClickListener {
-
+            startActivity(Intent(this, SearchActivity::class.java))
         }
 
         binding.ivProfile.setOnClickListener {
@@ -40,7 +42,8 @@ class MainActivity : AppCompatActivity() {
         }.attach()
 
         for (i in tabTitles.indices) {
-            val textView = LayoutInflater.from(this).inflate(R.layout.tab_main_title, null) as TextView
+            val textView =
+                LayoutInflater.from(this).inflate(R.layout.tab_main_title, null) as TextView
             binding.tlSelect.getTabAt(i)?.customView = textView
         }
     }
