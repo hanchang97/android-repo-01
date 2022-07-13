@@ -3,7 +3,9 @@ package com.repo01.repoapp.di
 import com.repo01.repoapp.BuildConfig
 import com.repo01.repoapp.data.repository.LoginRepository
 import com.repo01.repoapp.data.network.LoginService
+import com.repo01.repoapp.data.network.SearchService
 import com.repo01.repoapp.data.network.TokenInterceptor
+import com.repo01.repoapp.data.repository.SearchRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -25,10 +27,10 @@ class ApiModule {
     }
 
     @Provides
-    fun provideInformationBaseUrl() = BuildConfig.INFORMATION_BASE_URL
+    fun provideLoginBaseUrl() = BuildConfig.LOGIN_BASE_URL
 
     @Provides
-    fun provideLoginBaseUrl() = BuildConfig.LOGIN_BASE_URL
+    fun provideInformationBaseUrl() = BuildConfig.INFORMATION_BASE_URL
 
     @Singleton
     @Provides
@@ -63,22 +65,22 @@ class ApiModule {
 
     @Singleton
     @Provides
-    @Named(INFO)
-    fun provideInformationRetrofit(@Named(INFO) okHttpClient: OkHttpClient): Retrofit {
+    @Named(LOGIN)
+    fun provideLoginRetrofit(@Named(LOGIN) okHttpClient: OkHttpClient): Retrofit {
         return Retrofit.Builder()
             .client(okHttpClient)
-            .baseUrl(provideInformationBaseUrl())
+            .baseUrl(provideLoginBaseUrl())
             .addConverterFactory(GsonConverterFactory.create())
             .build()
     }
 
     @Singleton
     @Provides
-    @Named(LOGIN)
-    fun provideLoginRetrofit(@Named(LOGIN) okHttpClient: OkHttpClient): Retrofit {
+    @Named(INFO)
+    fun provideInformationRetrofit(@Named(INFO) okHttpClient: OkHttpClient): Retrofit {
         return Retrofit.Builder()
             .client(okHttpClient)
-            .baseUrl(provideLoginBaseUrl())
+            .baseUrl(provideInformationBaseUrl())
             .addConverterFactory(GsonConverterFactory.create())
             .build()
     }
@@ -91,7 +93,16 @@ class ApiModule {
 
     @Singleton
     @Provides
+    fun provideSearchService(@Named(INFO) retrofit: Retrofit): SearchService {
+        return retrofit.create(SearchService::class.java)
+    }
+
+    @Singleton
+    @Provides
     fun provideLoginRepository(loginService: LoginService) = LoginRepository(loginService)
 
+    @Singleton
+    @Provides
+    fun provideSearchRepository(searchService: SearchService) = SearchRepository(searchService)
 
 }
