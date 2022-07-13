@@ -47,7 +47,7 @@
             android:text="@string/login_github"
             app:shapeAppearanceOverlay="@style/buttonRadius"
             app:layout_constraintBottom_toBottomOf="parent"
-            android:backgroundTint="@color/Primary"
+            android:backgroundTint="@color/primary"
             android:textColor="@color/white"
             app:elevation="0dp"
             app:layout_constraintDimensionRatio="312:48"

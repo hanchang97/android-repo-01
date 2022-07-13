@@ -3,17 +3,24 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="app/src/main/res/drawable/bg_background.xml" value="0.24" />
-        <entry key="app/src/main/res/drawable/bg_main_tab_selected.xml" value="0.179" />
-        <entry key="app/src/main/res/drawable/bg_main_tab_unselected.xml" value="0.179" />
-        <entry key="app/src/main/res/drawable/bg_profile.xml" value="0.2955" />
-        <entry key="app/src/main/res/drawable/ic_search.xml" value="0.267" />
-        <entry key="app/src/main/res/drawable/selector_main_background_selector.xml" value="0.179" />
-        <entry key="app/src/main/res/layout/activity_login.xml" value="0.2295725504557292" />
-        <entry key="app/src/main/res/layout/activity_main.xml" value="0.24547271728515627" />
-        <entry key="app/src/main/res/layout/fragment_issue.xml" value="0.28072916666666664" />
-        <entry key="app/src/main/res/layout/fragment_notifications.xml" value="0.28177083333333336" />
-        <entry key="app/src/main/res/layout/tab_main_title.xml" value="0.28177083333333336" />
+        <entry key="../../../../layout/custom_preview.xml" value="0.14547595021863438" />
+        <entry key="app/src/main/res/drawable/bg_gradient.xml" value="0.123" />
+        <entry key="app/src/main/res/drawable/bg_main.xml" value="0.233" />
+        <entry key="app/src/main/res/drawable/bg_main_tab_selected.xml" value="0.1735" />
+        <entry key="app/src/main/res/drawable/bg_main_tab_selector.xml" value="0.1735" />
+        <entry key="app/src/main/res/drawable/bg_main_tab_unselected.xml" value="0.1735" />
+        <entry key="app/src/main/res/drawable/bg_search.xml" value="0.233" />
+        <entry key="app/src/main/res/drawable/bg_search_view.xml" value="0.233" />
+        <entry key="app/src/main/res/drawable/bg_search_view_normal.xml" value="0.12" />
+        <entry key="app/src/main/res/drawable/bg_search_view_typing.xml" value="0.12" />
+        <entry key="app/src/main/res/drawable/bg_searchview_normal.xml" value="0.233" />
+        <entry key="app/src/main/res/drawable/bg_searchview_typing.xml" value="0.233" />
+        <entry key="app/src/main/res/layout/activity_login.xml" value="0.23229166666666667" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.13722826086956522" />
+        <entry key="app/src/main/res/layout/activity_search.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/fragment_issue.xml" value="0.23229166666666667" />
+        <entry key="app/src/main/res/layout/fragment_notifications.xml" value="0.23229166666666667" />
+        <entry key="app/src/main/res/layout/tab_main_title.xml" value="0.23229166666666667" />
       </map>
     </option>
   </component>

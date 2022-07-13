@@ -8,5 +8,5 @@ object Auth {
     const val AUTH_PARAM_SCOPE = "scope"
 
     const val REDIRECT_URI = "repo://github-auth"
-    const val SCOPE = "repo, user, notifications"
+    const val SCOPE = "repo,user,notifications"
 }
