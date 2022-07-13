@@ -7,6 +7,7 @@ import androidx.core.view.isGone
 import androidx.core.view.isVisible
 import androidx.core.widget.doAfterTextChanged
 import androidx.databinding.DataBindingUtil
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.repo01.repoapp.R
 import com.repo01.repoapp.databinding.ActivitySearchBinding
@@ -53,8 +54,12 @@ class SearchActivity : AppCompatActivity() {
 
     private fun initRecyclerView() {
         binding.rvSearchResultList.apply {
-            adapter = this@SearchActivity.adapter
-            layoutManager = LinearLayoutManager(this@SearchActivity)
+            adapter = this@SearchActivity.adapter.also {
+                addItemDecoration(
+                    DividerItemDecoration(context, DividerItemDecoration.VERTICAL)
+                )
+            }
+            layoutManager = LinearLayoutManager(context)
         }
     }
 
