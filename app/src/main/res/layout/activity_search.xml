@@ -17,7 +17,6 @@
             android:layout_marginTop="?attr/actionBarSize"
             android:background="@drawable/bg_search_et_selector"
             android:drawableStart="@drawable/ic_search"
-            android:drawableEnd="@drawable/ic_variant10"
             android:drawablePadding="16dp"
             android:hint="@string/search_hint_message"
             android:inputType="text"
