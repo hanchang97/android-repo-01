@@ -80,7 +80,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="5dp"
-            android:text="@{Integer.toString(searchItem.stargazers_count)}"
+            android:text="@{searchItem.stargazers_count}"
             android:textColor="@color/grey"
             app:layout_constraintBottom_toBottomOf="@id/iv_like"
             app:layout_constraintStart_toEndOf="@id/iv_like"
