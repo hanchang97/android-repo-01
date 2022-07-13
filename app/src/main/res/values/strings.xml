@@ -12,5 +12,8 @@
     <string name="search_default_content">Search all of GitHub for People,
         \nRepositories, Organizations, Issues,
         \nand Pull Requests.</string>
+    <string name="issue_menu_open">Open</string>
+    <string name="issue_menu_closed">Closed</string>
+    <string name="issue_menu_all">All</string>
 
 </resources>
