@@ -7,5 +7,8 @@
     <string name="login_fail_message">로그인에 실패했습니다.</string>
 
     <string name="main_title">What’s In My GitHub</string>
+    <string name="issue_menu_open">Open</string>
+    <string name="issue_menu_closed">Closed</string>
+    <string name="issue_menu_all">All</string>
 
 </resources>

@@ -11,5 +11,6 @@
     <color name="background">#111723</color>
     <color name="primary">#448CF6</color>
     <color name="navy">#1B2840</color>
+    <color name="grey">#74869B</color>
 
 </resources>
