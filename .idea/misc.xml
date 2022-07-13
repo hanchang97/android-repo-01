@@ -10,6 +10,9 @@
         <entry key="app/src/main/res/drawable/bg_main_tab_selector.xml" value="0.1735" />
         <entry key="app/src/main/res/drawable/bg_main_tab_unselected.xml" value="0.1735" />
         <entry key="app/src/main/res/drawable/bg_search.xml" value="0.233" />
+        <entry key="app/src/main/res/drawable/bg_search_et_focused.xml" value="0.1735" />
+        <entry key="app/src/main/res/drawable/bg_search_et_normal.xml" value="0.1735" />
+        <entry key="app/src/main/res/drawable/bg_search_et_selector.xml" value="0.1735" />
         <entry key="app/src/main/res/drawable/bg_search_view.xml" value="0.233" />
         <entry key="app/src/main/res/drawable/bg_search_view_normal.xml" value="0.12" />
         <entry key="app/src/main/res/drawable/bg_search_view_typing.xml" value="0.12" />

@@ -1,11 +1,12 @@
 <resources>
     <string name="app_name">repoApp</string>
     <string name="login_github">GitHub 로그인</string>
-    
+
     <string name="login_title">What’s In
         \nMy GitHub</string>
     <string name="login_fail_message">로그인에 실패했습니다.</string>
 
     <string name="main_title">What’s In My GitHub</string>
+    <string name="search_hint_message">Search GitHub</string>
 
 </resources>
