@@ -5,6 +5,6 @@ data class SearchItemModel(
     val ownerName: String,
     val avatarUrl: String?,
     val description: String?,
-    val stargazers_count: Int,
+    val stargazers_count: String,
     val language: String?
 )
