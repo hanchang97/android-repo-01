@@ -8,5 +8,9 @@
 
     <string name="main_title">What’s In My GitHub</string>
     <string name="search_hint_message">Search GitHub</string>
+    <string name="search_default_title">Find Your Stuff</string>
+    <string name="search_default_content">Search all of GitHub for People,
+        \nRepositories, Organizations, Issues,
+        \nand Pull Requests.</string>
 
 </resources>
