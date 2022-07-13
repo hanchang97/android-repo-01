@@ -8,7 +8,8 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 
-    <color name="Background">#111723</color>
-    <color name="Primary">#448CF6</color>
+    <color name="background">#111723</color>
+    <color name="primary">#448CF6</color>
+    <color name="navy">#1B2840</color>
 
 </resources>
