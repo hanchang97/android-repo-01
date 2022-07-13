@@ -27,9 +27,9 @@ class SearchViewModel @Inject constructor(
                     SearchItemModel(
                         repoName = item.name,
                         ownerName = item.owner.login,
-                        avatarUrl = item.owner.avatar_url,
+                        avatarUrl = item.owner.avatarUrl,
                         description = item.description,
-                        stargazers_count = getFormattedNumber(item.stargazers_count),
+                        stargazers_count = getFormattedNumber(item.stargazersCount),
                         language = item.language
                     )
                 }
