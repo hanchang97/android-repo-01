@@ -5,16 +5,17 @@ import okhttp3.Response
 import javax.inject.Singleton
 
 @Singleton
-class TokenInterceptor :Interceptor {
+class TokenInterceptor : Interceptor {
     private lateinit var token: String
 
-    fun setToken(token : String) {
+    fun setToken(token: String) {
         this.token = token
     }
 
     override fun intercept(chain: Interceptor.Chain): Response {
         val request =
             chain.request().newBuilder()
+                .header("Accept", "application/vnd.github+json")
                 .header("Authorization", "token $token")
                 .build()
         return chain.proceed(request)
