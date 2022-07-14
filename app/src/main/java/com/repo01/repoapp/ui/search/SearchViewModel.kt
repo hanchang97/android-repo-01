@@ -7,6 +7,8 @@ import androidx.lifecycle.viewModelScope
 import com.repo01.repoapp.data.model.SearchItemModel
 import com.repo01.repoapp.data.repository.SearchRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 import kotlin.math.ln
@@ -19,19 +21,25 @@ class SearchViewModel @Inject constructor(
     private val _searchResult = MutableLiveData<List<SearchItemModel>>()
     val searchResult: LiveData<List<SearchItemModel>> = _searchResult
 
-    fun searchRepositoriesByQuery(query: String) = viewModelScope.launch {
-        val response = repository.getSearchRepositories(query)
-        if (response.isSuccessful) {
-            response.body()?.let {
-                _searchResult.value = it.items.map { item ->
-                    SearchItemModel(
-                        repoName = item.name,
-                        ownerName = item.owner.login,
-                        avatarUrl = item.owner.avatarUrl,
-                        description = item.description,
-                        stargazers_count = getFormattedNumber(item.stargazersCount),
-                        language = item.language
-                    )
+    private var searchJob: Job? = null
+
+    fun searchRepositoriesByQuery(query: String) {
+        searchJob?.cancel()
+        searchJob = viewModelScope.launch {
+            delay(500)
+            val response = repository.getSearchRepositories(query)
+            if (response.isSuccessful) {
+                response.body()?.let {
+                    _searchResult.value = it.items.map { item ->
+                        SearchItemModel(
+                            repoName = item.name,
+                            ownerName = item.owner.login,
+                            avatarUrl = item.owner.avatarUrl,
+                            description = item.description,
+                            stargazers_count = getFormattedNumber(item.stargazersCount),
+                            language = item.language
+                        )
+                    }
                 }
             }
         }
