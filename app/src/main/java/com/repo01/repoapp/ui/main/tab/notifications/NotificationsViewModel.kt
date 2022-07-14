@@ -21,6 +21,17 @@ class NotificationsViewModel @Inject constructor(private val notificationsReposi
 
                     list.forEach {
                         PrintLog.printLog("result : ${it}")
+
+                        val str = it.issueUrl.substring(8, it.issueUrl.length)
+                        PrintLog.printLog("substring : ${str}")
+
+                        val arr = str.split("/")
+
+                        val repoName = arr[arr.size-3]
+                        PrintLog.printLog("repoName : ${repoName}")
+
+                        val issueNum = arr[arr.size-1].toInt()
+                        PrintLog.printLog("issueNum : ${issueNum}")
                     }
                 }
             }
