@@ -110,6 +110,7 @@ class IssueFragment : Fragment() {
                 R.id.option_all -> {
                     PrintLog.printLog("All")
                     issueViewModel.updateOptionIndex(2)
+                    issueViewModel.getIssues("all")
                 }
             }
             true
