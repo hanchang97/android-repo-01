@@ -23,4 +23,5 @@
     <string name="profile_repository_count_title">Repositories</string>
     <string name="profile_starred_count_title">Starred</string>
 
+    <string name="issue_data_fullname_and_number">%s #%s</string>
 </resources>

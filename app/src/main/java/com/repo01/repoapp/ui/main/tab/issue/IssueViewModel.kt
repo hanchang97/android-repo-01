@@ -1,6 +1,5 @@
 package com.repo01.repoapp.ui.main.tab.issue
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -9,7 +8,6 @@ import com.repo01.repoapp.data.model.IssueItemModel
 import com.repo01.repoapp.data.repository.IssueRepository
 import com.repo01.repoapp.util.PrintLog
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -33,7 +31,7 @@ class IssueViewModel @Inject constructor(private val issueRepository: IssueRepos
             if(response.isSuccessful){
                 response.body()?.let {
                     PrintLog.printLog(it.size.toString())
-                    _issueList.value = it.map { issue -> issue.MapIssueItemMoedel() }
+                    _issueList.value = it.map { issue -> issue.mapIssueItemMoedel() }
                 }
             }
         }
