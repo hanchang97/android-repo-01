@@ -11,7 +11,9 @@ import com.repo01.repoapp.R
 import com.repo01.repoapp.databinding.ActivityMainBinding
 import com.repo01.repoapp.ui.main.adapter.ViewPagerAdapter
 import com.repo01.repoapp.ui.search.SearchActivity
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding

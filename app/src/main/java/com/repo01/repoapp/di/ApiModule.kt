@@ -1,10 +1,12 @@
 package com.repo01.repoapp.di
 
 import com.repo01.repoapp.BuildConfig
+import com.repo01.repoapp.data.network.IssueService
 import com.repo01.repoapp.data.repository.LoginRepository
 import com.repo01.repoapp.data.network.LoginService
 import com.repo01.repoapp.data.network.SearchService
 import com.repo01.repoapp.data.network.TokenInterceptor
+import com.repo01.repoapp.data.repository.IssueRepository
 import com.repo01.repoapp.data.repository.SearchRepository
 import dagger.Module
 import dagger.Provides
@@ -99,10 +101,20 @@ class ApiModule {
 
     @Singleton
     @Provides
+    fun provideIssueService(@Named(INFO) retrofit: Retrofit): IssueService {
+        return retrofit.create(IssueService::class.java)
+    }
+
+    @Singleton
+    @Provides
     fun provideLoginRepository(loginService: LoginService) = LoginRepository(loginService)
 
     @Singleton
     @Provides
     fun provideSearchRepository(searchService: SearchService) = SearchRepository(searchService)
+
+    @Singleton
+    @Provides
+    fun provideIssueRepository(issueService: IssueService) = IssueRepository(issueService)
 
 }
