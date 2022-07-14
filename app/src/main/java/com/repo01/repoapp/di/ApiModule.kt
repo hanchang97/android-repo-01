@@ -2,10 +2,7 @@ package com.repo01.repoapp.di
 
 import com.repo01.repoapp.BuildConfig
 import com.repo01.repoapp.data.network.*
-import com.repo01.repoapp.data.repository.LoginRepository
-import com.repo01.repoapp.data.repository.IssueRepository
-import com.repo01.repoapp.data.repository.ProfileRepository
-import com.repo01.repoapp.data.repository.SearchRepository
+import com.repo01.repoapp.data.repository.*
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -105,6 +102,12 @@ class ApiModule {
 
     @Singleton
     @Provides
+    fun provideNotificationsService(@Named(INFO) retrofit: Retrofit): NotificationsService {
+        return retrofit.create(NotificationsService::class.java)
+    }
+
+    @Singleton
+    @Provides
     fun provideProfileService(@Named(INFO) retrofit: Retrofit): ProfileService {
         return retrofit.create(ProfileService::class.java)
     }
@@ -120,6 +123,10 @@ class ApiModule {
     @Singleton
     @Provides
     fun provideIssueRepository(issueService: IssueService) = IssueRepository(issueService)
+
+    @Singleton
+    @Provides
+    fun providesNotificationsRepository(notificationsService: NotificationsService) = NotificationsRepository(notificationsService)
 
     @Singleton
     @Provides
