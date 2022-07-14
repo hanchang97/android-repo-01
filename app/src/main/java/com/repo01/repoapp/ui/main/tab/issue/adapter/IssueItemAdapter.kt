@@ -16,8 +16,6 @@ class IssueItemAdapter : ListAdapter<IssueItemModel, IssueItemAdapter.IssueItemV
         fun bind(issueItem: IssueItemModel) {
             binding.issueItemModel = issueItem
 
-            binding.tvFullNameAndNumber.text =
-                issueItem.fullName + "  #" + issueItem.number.toString()
             when (issueItem.state) {
                 "open" -> binding.ivState.setImageResource(R.drawable.ic_issueopen)
                 else -> binding.ivState.setImageResource(R.drawable.ic_issueclosed)
