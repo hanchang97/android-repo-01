@@ -1,13 +1,117 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
+        <variable
+            name="issueItemModel"
+            type="com.repo01.repoapp.data.model.IssueItemModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/gl_vertical_begin"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="24dp" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/gl_vertical_end"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:orientation="vertical"
+            app:layout_constraintGuide_end="24dp" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/gl_vertical_62"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.62" />
+
+        <View
+            android:id="@+id/view_top"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintDimensionRatio="360:20"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <View
+            android:id="@+id/view_bottom"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintDimensionRatio="360:16"
+            app:layout_constraintTop_toBottomOf="@id/tv_title" />
+
+        <ImageView
+            android:id="@+id/iv_state"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:src="@drawable/ic_issueopen"
+            app:layout_constraintBottom_toBottomOf="@id/tv_full_name_and_number"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintStart_toStartOf="@id/gl_vertical_begin"
+            app:layout_constraintTop_toTopOf="@id/tv_full_name_and_number"
+            app:layout_constraintWidth_percent="0.065" />
+
+        <View
+            android:id="@+id/view_empty_1"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="@id/iv_state"
+            app:layout_constraintStart_toEndOf="@id/iv_state"
+            app:layout_constraintTop_toTopOf="@id/iv_state"
+            app:layout_constraintWidth_percent="0.022" />
+
+        <TextView
+            android:id="@+id/tv_full_name_and_number"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="left|center_vertical"
+            android:maxLines="2"
+            android:textColor="@color/grey"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="@id/gl_vertical_62"
+            app:layout_constraintStart_toEndOf="@id/view_empty_1"
+            app:layout_constraintTop_toBottomOf="@id/view_top"
+            tools:text="sam/whatsinmygithub  #1" />
+
+        <!-- 몇일 전에 생성한 이슈인지 -->
+        <TextView
+            android:id="@+id/tv_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/grey"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="@id/tv_full_name_and_number"
+            app:layout_constraintEnd_toEndOf="@id/gl_vertical_end"
+            app:layout_constraintTop_toTopOf="@id/tv_full_name_and_number"
+            tools:text="1일 전" />
+
+        <View
+            android:id="@+id/view_empty_2"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintDimensionRatio="360:8"
+            app:layout_constraintTop_toBottomOf="@id/tv_full_name_and_number" />
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="left|center_vertical"
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="@id/gl_vertical_end"
+            app:layout_constraintStart_toStartOf="@id/tv_full_name_and_number"
+            app:layout_constraintTop_toBottomOf="@id/view_empty_2" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

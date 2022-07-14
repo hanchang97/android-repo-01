@@ -4,6 +4,8 @@ import com.google.gson.annotations.SerializedName
 import com.repo01.repoapp.data.model.IssueItemModel
 
 data class IssueResponse(
+    @SerializedName("id")
+    val id: Int,
     @SerializedName("state")
     val state: String,
     @SerializedName("created_at")
@@ -21,6 +23,7 @@ data class IssueResponse(
     )
 
     fun IssueResponse.toIssueItemMoedel() = IssueItemModel(
+        id = id,
         state = state,
         createdAt = createdAt,
         title = title,
