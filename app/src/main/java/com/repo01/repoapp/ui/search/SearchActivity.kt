@@ -12,7 +12,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.repo01.repoapp.R
 import com.repo01.repoapp.databinding.ActivitySearchBinding
 import dagger.hilt.android.AndroidEntryPoint
-import java.util.*
 
 @AndroidEntryPoint
 class SearchActivity : AppCompatActivity() {
@@ -44,15 +43,8 @@ class SearchActivity : AppCompatActivity() {
                     0
                 )
             }
-            var timer = Timer()
             doAfterTextChanged {
-                timer.cancel()
-                timer = Timer()
-                timer.schedule(object : TimerTask() {
-                    override fun run() {
-                        viewModel.searchRepositoriesByQuery(it.toString())
-                    }
-                }, 500)
+                viewModel.searchRepositoriesByQuery(it.toString())
             }
         }
     }
