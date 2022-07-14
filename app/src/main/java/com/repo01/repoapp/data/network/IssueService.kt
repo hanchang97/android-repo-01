@@ -1,6 +1,7 @@
 package com.repo01.repoapp.data.network
 
 import com.repo01.repoapp.data.network.response.issue.IssueResponse
+import com.repo01.repoapp.data.network.response.issue.SpecificIssueResponse
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -19,5 +20,5 @@ interface IssueService {
         @Path("owner") owner: String,
         @Path("repo") repo: String,
         @Path("issue_number") issueNumber: Int
-    ): Response<IssueResponse>
+    ): Response<SpecificIssueResponse>
 }

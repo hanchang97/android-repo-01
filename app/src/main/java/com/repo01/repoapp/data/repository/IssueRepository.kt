@@ -5,4 +5,5 @@ import javax.inject.Inject
 
 class IssueRepository @Inject constructor(private val issueService: IssueService) {
     suspend fun getIssues(state: String) = issueService.getIssues(state)
+    suspend fun getSpecificIssue(owner: String, repo: String, issueNumber: Int) = issueService.getSpecificIssue(owner, repo, issueNumber)
 }
