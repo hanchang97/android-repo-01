@@ -7,6 +7,8 @@
     <string name="login_fail_message">로그인에 실패했습니다.</string>
 
     <string name="main_title">What’s In My GitHub</string>
+
+    <string name="search_title">Search</string>
     <string name="search_hint_message">Search GitHub</string>
     <string name="search_default_title">Find Your Stuff</string>
     <string name="search_default_content">Search all of GitHub for People,
