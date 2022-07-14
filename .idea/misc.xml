@@ -3,7 +3,6 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="../../../../layout/custom_preview.xml" value="0.14547595021863438" />
         <entry key="app/src/main/res/drawable/bg_background.xml" value="0.24" />
         <entry key="app/src/main/res/drawable/bg_issue_filter_bar.xml" value="0.16239117431640623" />
         <entry key="app/src/main/res/drawable/bg_issue_filter_bar_pressed.xml" value="0.1625" />
@@ -12,13 +11,14 @@
         <entry key="app/src/main/res/drawable/bg_main_tab_selected.xml" value="0.179" />
         <entry key="app/src/main/res/drawable/bg_main_tab_selector.xml" value="0.1755" />
         <entry key="app/src/main/res/drawable/bg_main_tab_unselected.xml" value="0.179" />
+        <entry key="app/src/main/res/drawable/bg_notifications_comment.xml" value="0.2305" />
         <entry key="app/src/main/res/drawable/bg_profile.xml" value="0.2955" />
-        <entry key="app/src/main/res/drawable/bg_profile_info.xml" value="0.2645" />
-        <entry key="app/src/main/res/drawable/bg_profile_text.xml" value="0.171" />
         <entry key="app/src/main/res/drawable/custom_popup_background.xml" value="0.1575" />
         <entry key="app/src/main/res/drawable/ic_arrow_left.xml" value="0.1755" />
         <entry key="app/src/main/res/drawable/ic_bookmark.xml" value="0.1755" />
+        <entry key="app/src/main/res/drawable/ic_check.xml" value="0.2655" />
         <entry key="app/src/main/res/drawable/ic_filter.xml" value="0.1755" />
+        <entry key="app/src/main/res/drawable/ic_issueclosed.xml" value="0.2655" />
         <entry key="app/src/main/res/drawable/ic_issueopen.xml" value="0.1755" />
         <entry key="app/src/main/res/drawable/ic_link.xml" value="0.1755" />
         <entry key="app/src/main/res/drawable/ic_location.xml" value="0.1755" />
@@ -29,13 +29,11 @@
         <entry key="app/src/main/res/drawable/selector_main_background_selector.xml" value="0.179" />
         <entry key="app/src/main/res/layout/activity_login.xml" value="0.2295725504557292" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.24547271728515627" />
-        <entry key="app/src/main/res/layout/activity_profile.xml" value="0.335" />
-        <entry key="app/src/main/res/layout/activity_search.xml" value="0.20643363728470113" />
         <entry key="app/src/main/res/layout/fragment_issue.xml" value="0.27544199625651034" />
         <entry key="app/src/main/res/layout/fragment_notifications.xml" value="0.28177083333333336" />
-        <entry key="app/src/main/res/layout/item_issue_list.xml" value="0.2453125" />
-        <entry key="app/src/main/res/layout/item_search_list.xml" value="0.20643363728470113" />
-        <entry key="app/src/main/res/layout/layout_profile_info.xml" value="0.3795289855072464" />
+        <entry key="app/src/main/res/layout/item_issue_list.xml" value="0.2828125" />
+        <entry key="app/src/main/res/layout/item_notifications_list.xml" value="0.31771341959635413" />
+        <entry key="app/src/main/res/layout/item_search_list.xml" value="0.24947916666666667" />
         <entry key="app/src/main/res/layout/tab_main_title.xml" value="0.28177083333333336" />
         <entry key="app/src/main/res/menu/menu_issue_filter.xml" value="0.21875" />
       </map>
