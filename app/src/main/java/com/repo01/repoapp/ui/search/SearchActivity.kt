@@ -24,9 +24,14 @@ class SearchActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_search)
 
+        initViews()
+        observeData()
+    }
+
+    private fun initViews() {
+        binding.toolbar.setNavigationOnClickListener { finish() }
         initSearchEditText()
         initRecyclerView()
-        observeData()
     }
 
     private fun initSearchEditText() {
