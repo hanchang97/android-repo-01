@@ -1,12 +1,10 @@
 package com.repo01.repoapp.di
 
 import com.repo01.repoapp.BuildConfig
-import com.repo01.repoapp.data.network.IssueService
+import com.repo01.repoapp.data.network.*
 import com.repo01.repoapp.data.repository.LoginRepository
-import com.repo01.repoapp.data.network.LoginService
-import com.repo01.repoapp.data.network.SearchService
-import com.repo01.repoapp.data.network.TokenInterceptor
 import com.repo01.repoapp.data.repository.IssueRepository
+import com.repo01.repoapp.data.repository.ProfileRepository
 import com.repo01.repoapp.data.repository.SearchRepository
 import dagger.Module
 import dagger.Provides
@@ -107,6 +105,12 @@ class ApiModule {
 
     @Singleton
     @Provides
+    fun provideProfileService(@Named(INFO) retrofit: Retrofit): ProfileService {
+        return retrofit.create(ProfileService::class.java)
+    }
+
+    @Singleton
+    @Provides
     fun provideLoginRepository(loginService: LoginService) = LoginRepository(loginService)
 
     @Singleton
@@ -116,5 +120,9 @@ class ApiModule {
     @Singleton
     @Provides
     fun provideIssueRepository(issueService: IssueService) = IssueRepository(issueService)
+
+    @Singleton
+    @Provides
+    fun provideProfileRepository(profileService: ProfileService) = ProfileRepository(profileService)
 
 }
