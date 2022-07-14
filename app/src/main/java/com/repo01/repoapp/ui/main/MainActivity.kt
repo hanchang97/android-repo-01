@@ -10,6 +10,7 @@ import com.google.android.material.tabs.TabLayoutMediator
 import com.repo01.repoapp.R
 import com.repo01.repoapp.databinding.ActivityMainBinding
 import com.repo01.repoapp.ui.main.adapter.ViewPagerAdapter
+import com.repo01.repoapp.ui.profile.ProfileActivity
 import com.repo01.repoapp.ui.search.SearchActivity
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -33,7 +34,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         binding.ivProfile.setOnClickListener {
-
+            startActivity(Intent(this, ProfileActivity::class.java))
         }
     }
 
