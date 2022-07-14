@@ -16,8 +16,9 @@ class IssueItemAdapter : ListAdapter<IssueItemModel, IssueItemAdapter.IssueItemV
         fun bind(issueItem: IssueItemModel) {
             binding.issueItemModel = issueItem
 
-            binding.tvFullNameAndNumber.text = issueItem.fullName + "  #" + issueItem.number.toString()
-            when(issueItem.state){
+            binding.tvFullNameAndNumber.text =
+                issueItem.fullName + "  #" + issueItem.number.toString()
+            when (issueItem.state) {
                 "open" -> binding.ivState.setImageResource(R.drawable.ic_issueopen)
                 else -> binding.ivState.setImageResource(R.drawable.ic_issueclosed)
             }
@@ -26,7 +27,8 @@ class IssueItemAdapter : ListAdapter<IssueItemModel, IssueItemAdapter.IssueItemV
     // 바인딩 어댑터, string resource 사용해서 리팩토링 예정
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): IssueItemViewHolder {
-        val binding = ItemIssueListBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding =
+            ItemIssueListBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return IssueItemViewHolder(binding)
     }
 

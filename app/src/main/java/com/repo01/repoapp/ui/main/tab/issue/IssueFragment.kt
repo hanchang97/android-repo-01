@@ -9,8 +9,10 @@ import androidx.appcompat.widget.PopupMenu
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.repo01.repoapp.R
 import com.repo01.repoapp.databinding.FragmentIssueBinding
+import com.repo01.repoapp.ui.main.tab.issue.adapter.IssueItemAdapter
 import com.repo01.repoapp.util.PrintLog
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -19,6 +21,7 @@ class IssueFragment : Fragment() {
 
     private lateinit var binding: FragmentIssueBinding
     private val issueViewModel: IssueViewModel by viewModels()
+    private val issueAdapter by lazy { IssueItemAdapter() }
     private var filterBarActivate = false
 
     override fun onCreateView(
@@ -33,8 +36,32 @@ class IssueFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        initView()
+        observeData()
+    }
+
+    private fun initView(){
         setFilterBar()
+        setRecyclerView()
+    }
+
+    private fun setRecyclerView(){
+        binding.rvIssueList.apply {
+            adapter = issueAdapter
+            layoutManager = LinearLayoutManager(requireContext())
+        }
+    }
+
+    private fun observeData(){
         observeOptionData()
+        observeIssueData()
+    }
+
+    private fun observeIssueData(){
+        issueViewModel.issueList.observe(viewLifecycleOwner){
+            issueAdapter.submitList(it.toList())
+            binding.rvIssueList.smoothScrollToPosition(0)
+        }
     }
 
     private fun observeOptionData(){
@@ -73,10 +100,12 @@ class IssueFragment : Fragment() {
                 R.id.option_open -> {
                     PrintLog.printLog("Open")
                     issueViewModel.updateOptionIndex(0)
+                    issueViewModel.getIssues("open")
                 }
                 R.id.option_closed -> {
                     PrintLog.printLog("Closed")
                     issueViewModel.updateOptionIndex(1)
+                    issueViewModel.getIssues("closed")
                 }
                 R.id.option_all -> {
                     PrintLog.printLog("All")

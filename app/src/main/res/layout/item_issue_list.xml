@@ -88,13 +88,13 @@
             android:id="@+id/tv_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="1일 전"
             android:textColor="@color/grey"
             android:textSize="14sp"
             app:layout_constraintBottom_toBottomOf="@id/tv_full_name_and_number"
             app:layout_constraintEnd_toEndOf="@id/gl_vertical_end"
             app:layout_constraintTop_toTopOf="@id/tv_full_name_and_number"
-            tools:text="1일 전"
-            android:text="1일 전"/>
+            tools:text="1일 전" />
 
         <View
             android:id="@+id/view_empty_2"
@@ -108,12 +108,22 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:gravity="left|center_vertical"
+            android:text="@{issueItemModel.title}"
             android:textColor="@color/white"
             android:textSize="14sp"
             app:layout_constraintEnd_toEndOf="@id/gl_vertical_end"
             app:layout_constraintStart_toStartOf="@id/tv_full_name_and_number"
-            app:layout_constraintTop_toBottomOf="@id/view_empty_2"
-            android:text="@{issueItemModel.title}"/>
+            app:layout_constraintTop_toBottomOf="@id/view_empty_2" />
+
+        <View
+            android:id="@+id/view_divider"
+            android:layout_width="0dp"
+            android:layout_height="2dp"
+            android:background="@color/navy"
+            app:layout_constraintBottom_toBottomOf="@id/view_bottom"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintWidth_percent="0.9" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

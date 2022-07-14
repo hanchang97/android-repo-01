@@ -22,7 +22,7 @@ data class IssueResponse(
         val fullName: String
     )
 
-    fun IssueResponse.toIssueItemMoedel() = IssueItemModel(
+    fun MapIssueItemMoedel() = IssueItemModel(
         id = id,
         state = state,
         createdAt = createdAt,
@@ -31,3 +31,4 @@ data class IssueResponse(
         fullName = repository.fullName
     )
 }
+
