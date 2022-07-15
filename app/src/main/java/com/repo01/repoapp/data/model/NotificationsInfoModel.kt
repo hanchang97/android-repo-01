@@ -6,5 +6,6 @@ data class NotificationsInfoModel(
     val title: String,
     val fullName: String,
     val org: String,
-    val issueUrl: String
+    val issueUrl: String,
+    val avataUrl: String
 )

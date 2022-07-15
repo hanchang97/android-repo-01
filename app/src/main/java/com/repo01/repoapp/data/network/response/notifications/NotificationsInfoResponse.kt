@@ -21,7 +21,9 @@ data class NotificationsInfoResponse(
     ) {
         data class Owner(
             @SerializedName("login")
-            val org: String
+            val org: String,
+            @SerializedName("avatar_url")
+            val avataUrl: String
         )
     }
 
@@ -38,6 +40,7 @@ data class NotificationsInfoResponse(
         title = subject.title,
         fullName = repository.fullName,
         org = repository.owner.org,
-        issueUrl = subject.issueUrl
+        issueUrl = subject.issueUrl,
+        avataUrl = repository.owner.avataUrl
     )
 }
