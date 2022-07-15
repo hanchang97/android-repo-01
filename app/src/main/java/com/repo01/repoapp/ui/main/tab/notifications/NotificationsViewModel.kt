@@ -1,7 +1,10 @@
 package com.repo01.repoapp.ui.main.tab.notifications
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.repo01.repoapp.data.model.IssueItemModel
 import com.repo01.repoapp.data.model.NotificationsInfoModel
 import com.repo01.repoapp.data.model.NotificationsItemModel
 import com.repo01.repoapp.data.repository.IssueRepository
@@ -21,7 +24,15 @@ class NotificationsViewModel @Inject constructor(
     private val organizationRepository: OrganizationRepository
 ) : ViewModel() {
 
+    private val _notificationList = MutableLiveData<List<NotificationsItemModel>>()
+    val notificationList: LiveData<List<NotificationsItemModel>> = _notificationList
+
+    private val _progressBarVisible = MutableLiveData<Boolean>()
+    val progressBarVisible: LiveData<Boolean> = _progressBarVisible
+    // UI State 관리 리팩토링 에정 (loading, success, error)
+
     fun getNotifications() {
+        _progressBarVisible.value = true
         viewModelScope.launch {
             val response = notificationsRepository.getNotifications(true)
 
@@ -65,6 +76,7 @@ class NotificationsViewModel @Inject constructor(
                     if (response.isSuccessful) {
                         response.body()?.let {
                             resultList[inx].commentNum = it.commentNum
+                            resultList[inx].issueNumber = it.number
                             PrintLog.printLog("comment확인 [${inx}] : ${resultList[inx].commentNum} ")
                         }
                     }
@@ -86,6 +98,9 @@ class NotificationsViewModel @Inject constructor(
             resultList.forEach {
                 PrintLog.printLog("${it.toString()}")
             }
+
+            _notificationList.value = resultList
+            _progressBarVisible.value = false
         }
     }
 }
