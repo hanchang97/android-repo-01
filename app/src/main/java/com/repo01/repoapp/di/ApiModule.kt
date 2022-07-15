@@ -114,6 +114,12 @@ class ApiModule {
 
     @Singleton
     @Provides
+    fun provideOrganizationService(@Named(INFO) retrofit: Retrofit): OrganizationService {
+        return retrofit.create(OrganizationService::class.java)
+    }
+
+    @Singleton
+    @Provides
     fun provideLoginRepository(loginService: LoginService) = LoginRepository(loginService)
 
     @Singleton
@@ -126,10 +132,14 @@ class ApiModule {
 
     @Singleton
     @Provides
-    fun providesNotificationsRepository(notificationsService: NotificationsService) = NotificationsRepository(notificationsService)
+    fun provideNotificationsRepository(notificationsService: NotificationsService) = NotificationsRepository(notificationsService)
 
     @Singleton
     @Provides
     fun provideProfileRepository(profileService: ProfileService) = ProfileRepository(profileService)
+
+    @Singleton
+    @Provides
+    fun provideOrganizationRepository(organizationService: OrganizationService) = OrganizationRepository(organizationService)
 
 }
