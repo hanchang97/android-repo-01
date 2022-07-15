@@ -13,6 +13,7 @@ import com.repo01.repoapp.data.network.TokenInterceptor
 import com.repo01.repoapp.databinding.ActivityLoginBinding
 import com.repo01.repoapp.ui.main.MainActivity
 import com.repo01.repoapp.util.Auth
+import com.repo01.repoapp.util.PrintLog
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -63,8 +64,10 @@ class LoginActivity : AppCompatActivity() {
         super.onResume()
 
         val uri = intent.data
+        PrintLog.printLog(uri.toString())
         if (uri != null && uri.toString().startsWith(Auth.REDIRECT_URI)) {
             uri.getQueryParameter("code")?.let {
+                PrintLog.printLog(it.toString())
                 viewModel.getAccessToken(it)
             }
         }

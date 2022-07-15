@@ -2,7 +2,7 @@ package com.repo01.repoapp.ui.common
 
 sealed class UiState<out T>(val _data: T?, val message: String?) {
 
-    data class Success<out T>(val data: T) : UiState<T>(
+    data class Success<out R>(val data: R) : UiState<R>(
         _data = data,
         message = null
     )
