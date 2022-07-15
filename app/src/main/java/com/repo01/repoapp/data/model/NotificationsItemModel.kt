@@ -6,9 +6,10 @@ data class NotificationsItemModel(
     var title: String = "",
     var fullName: String = "",
     var commentNum: Int = 0,
-    var orgImageUrl: String = ""
+    var orgImageUrl: String = "",
+    var issueNumber: Int = 0
 ) {
     override fun toString(): String {
-        return "id : ${id}, updatedAt : ${updatedAt}, title: ${title}, fullName : ${fullName}, commentNum : ${commentNum}, orgImageUrl : ${orgImageUrl}"
+        return "id : ${id}, updatedAt : ${updatedAt}, title: ${title}, fullName : ${fullName}, commentNum : ${commentNum}, orgImageUrl : ${orgImageUrl}, issueNumber : ${issueNumber}"
     }
 }

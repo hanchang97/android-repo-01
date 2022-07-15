@@ -5,6 +5,9 @@
 
     <data>
 
+        <variable
+            name="notificationsItemModel"
+            type="com.repo01.repoapp.data.model.NotificationsItemModel" />
 
     </data>
 
@@ -75,6 +78,7 @@
             android:layout_height="wrap_content"
             android:gravity="left|center_vertical"
             android:maxLines="2"
+            android:text="@{notificationsItemModel.fullName}"
             android:textColor="@color/grey"
             android:textSize="14sp"
             app:layout_constraintEnd_toEndOf="@id/gl_vertical_55"
@@ -88,7 +92,8 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:maxLines="1"
-            android:text="#1"
+            android:text="@{@string/notifications_issue_number(notificationsItemModel.issueNumber)}"
+            android:textColor="@color/grey"
             app:layout_constraintStart_toEndOf="@id/tv_full_name"
             app:layout_constraintTop_toTopOf="@id/tv_full_name" />
 
@@ -117,6 +122,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:gravity="left|center_vertical"
+            android:text="@{notificationsItemModel.title}"
             android:textColor="@color/white"
             android:textSize="14sp"
             app:layout_constraintStart_toStartOf="@id/tv_full_name"
@@ -139,7 +145,7 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/outfit_regular"
                 android:maxLines="1"
-                android:text="1"
+                android:text="@{Integer.toString(notificationsItemModel.commentNum)}"
                 android:textColor="@color/primary"
                 android:textSize="12sp"
                 app:layout_constraintBottom_toBottomOf="parent"
