@@ -2,7 +2,6 @@ package com.repo01.repoapp.ui.main.tab.issue
 
 import android.os.Build
 import android.os.Bundle
-import android.os.health.UidHealthStats
 import android.text.Html
 import android.view.*
 import androidx.annotation.MenuRes
@@ -60,11 +59,6 @@ class IssueFragment : Fragment() {
     }
 
     private fun observeIssueData(){
-//        issueViewModel.issueList.observe(viewLifecycleOwner){
-//            issueAdapter.submitList(it.toList())
-//            binding.rvIssueList.smoothScrollToPosition(0)
-//        }
-
         issueViewModel.issueState.observe(viewLifecycleOwner) {
             when(it){
                 is UiState.Loading -> {
@@ -120,20 +114,17 @@ class IssueFragment : Fragment() {
                 R.id.option_open -> {
                     PrintLog.printLog("Open")
                     issueViewModel.updateOptionIndex(0)
-                    //issueViewModel.getIssues("open")
-                    issueViewModel.getIssueRefactor("open")
+                    issueViewModel.getIssues("open")
                 }
                 R.id.option_closed -> {
                     PrintLog.printLog("Closed")
                     issueViewModel.updateOptionIndex(1)
-                    //issueViewModel.getIssues("closed")
-                    issueViewModel.getIssueRefactor("closed")
+                    issueViewModel.getIssues("closed")
                 }
                 R.id.option_all -> {
                     PrintLog.printLog("All")
                     issueViewModel.updateOptionIndex(2)
-                    //issueViewModel.getIssues("all")
-                    issueViewModel.getIssueRefactor("all")
+                    issueViewModel.getIssues("all")
                 }
             }
             true
