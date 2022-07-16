@@ -68,8 +68,6 @@ class NotificationsViewModel @Inject constructor(
                 resultList[it].fullName = list[it].fullName
                 resultList[it].orgImageUrl = list[it].avataUrl
 
-                // NotificationsItemModel(it.id, it.updatedAt, it.title, it.fullName)
-
                 val inx = it
                 async {
                     val response = issueRepository.getSpecificIssue(org, repoName, issueNum)
@@ -81,18 +79,6 @@ class NotificationsViewModel @Inject constructor(
                         }
                     }
                 }
-
-                // organization api 호출 후 이미지 url 가져오기
-//                async {
-//                    val reponse = organizationRepository.getOrganizationInfo(org)
-//                    if(reponse.isSuccessful){
-//                        reponse.body()?.let {
-//                            resultList[inx].orgImageUrl = it.imageUrl
-//                            PrintLog.printLog("org image url 확인 [${inx}]: ${resultList[inx].orgImageUrl}")
-//                        }
-//                    }
-//                }
-
             }.awaitAll()
 
             resultList.forEach {

@@ -12,6 +12,7 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.repo01.repoapp.R
 import com.repo01.repoapp.databinding.FragmentIssueBinding
+import com.repo01.repoapp.ui.common.UiState
 import com.repo01.repoapp.ui.main.tab.issue.adapter.IssueItemAdapter
 import com.repo01.repoapp.util.PrintLog
 import dagger.hilt.android.AndroidEntryPoint
@@ -58,9 +59,22 @@ class IssueFragment : Fragment() {
     }
 
     private fun observeIssueData(){
-        issueViewModel.issueList.observe(viewLifecycleOwner){
-            issueAdapter.submitList(it.toList())
-            binding.rvIssueList.smoothScrollToPosition(0)
+        issueViewModel.issueState.observe(viewLifecycleOwner) {
+            when(it){
+                is UiState.Loading -> {
+                    // progressbar 추가예정
+                }
+                is UiState.Success -> {
+                    issueAdapter.submitList(it.data.toList())
+                    binding.rvIssueList.smoothScrollToPosition(0)
+                }
+                is UiState.Error -> {
+                    // error 발생 시 처리 예정 -> 토스트 메시지? 스낵바? ...
+                }
+                is UiState.Empty -> {
+
+                }
+            }
         }
     }
 
