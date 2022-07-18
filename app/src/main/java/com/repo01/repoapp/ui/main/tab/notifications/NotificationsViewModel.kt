@@ -34,7 +34,8 @@ class NotificationsViewModel @Inject constructor(
     fun getNotifications() {
         _progressBarVisible.value = true
         viewModelScope.launch {
-            val response = notificationsRepository.getNotifications(true)
+            // 아직 읽지 않은 알림 = false
+            val response = notificationsRepository.getNotifications(false)
 
             if (response.isSuccessful) {
                 response.body()?.let {
