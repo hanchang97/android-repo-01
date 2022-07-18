@@ -79,5 +79,7 @@ class NotificationsFragment : Fragment(), ItemTouchHelperListener {
 
     override fun itemSwipe(position: Int) {
         // TODO - position의 id 값으로 읽음 처리 하기
+        val threadId = notificationsAdpater.currentList[position].id
+        notificationsViewModel.readNotification(threadId.toLong())
     }
 }

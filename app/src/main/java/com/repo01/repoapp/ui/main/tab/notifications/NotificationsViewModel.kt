@@ -90,4 +90,17 @@ class NotificationsViewModel @Inject constructor(
             _progressBarVisible.value = false
         }
     }
+
+    fun readNotification(threadId: Long){
+        viewModelScope.launch {
+            val response = notificationsRepository.readNotification(threadId)
+
+            if(response.isSuccessful){
+                PrintLog.printLog("read success")
+            }
+            else{
+                PrintLog.printLog("read error")
+            }
+        }
+    }
 }
