@@ -25,13 +25,11 @@ class SearchPagingSource(
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, SearchItemModel> {
         val page = params.key ?: STARTING_PAGING_INDEX
         return try {
-            val response = withContext(Dispatchers.IO) {
-                service.getSearchRepositories(
-                    query = query,
-                    page = page,
-                    per_page = 30
-                )
-            }
+            val response = service.getSearchRepositories(
+                query = query,
+                page = page,
+                per_page = 30
+            )
 
             val repos = response.body()?.items?.map { item ->
                 SearchItemModel(
