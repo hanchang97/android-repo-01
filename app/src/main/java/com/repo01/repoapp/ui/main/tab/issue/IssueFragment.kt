@@ -43,7 +43,13 @@ class IssueFragment : Fragment() {
 
     private fun initView(){
         setFilterBar()
+        getData()
         setRecyclerView()
+    }
+
+    private fun getData(){
+        issueViewModel.updateOptionIndex(0)
+        issueViewModel.getIssues("open")
     }
 
     private fun setRecyclerView(){
