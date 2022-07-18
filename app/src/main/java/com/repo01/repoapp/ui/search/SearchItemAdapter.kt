@@ -3,14 +3,15 @@ package com.repo01.repoapp.ui.search
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.repo01.repoapp.R
 import com.repo01.repoapp.data.model.SearchItemModel
 import com.repo01.repoapp.databinding.ItemSearchListBinding
 
-class SearchItemAdapter : ListAdapter<SearchItemModel, SearchItemAdapter.SearchItemViewHolder>(diffUtil) {
+class SearchItemAdapter :
+    PagingDataAdapter<SearchItemModel, SearchItemAdapter.SearchItemViewHolder>(diffUtil) {
 
     class SearchItemViewHolder(val binding: ItemSearchListBinding) :
         RecyclerView.ViewHolder(binding.root) {
@@ -31,7 +32,7 @@ class SearchItemAdapter : ListAdapter<SearchItemModel, SearchItemAdapter.SearchI
     }
 
     override fun onBindViewHolder(holder: SearchItemViewHolder, position: Int) {
-        holder.bind(currentList[position])
+        getItem(position)?.let { holder.bind(it) }
     }
 
     companion object {

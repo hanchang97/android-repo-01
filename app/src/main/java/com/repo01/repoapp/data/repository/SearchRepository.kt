@@ -1,14 +1,19 @@
 package com.repo01.repoapp.data.repository
 
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.liveData
 import com.repo01.repoapp.data.network.SearchService
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 class SearchRepository @Inject constructor(
     private val service: SearchService
 ) {
-    suspend fun getSearchRepositories(query: String) = withContext(Dispatchers.IO) {
-        service.getSearchRepositories(query)
-    }
+    fun getSearchRepositories(query: String) = Pager(
+        config = PagingConfig(pageSize = 30),
+        pagingSourceFactory = {
+            SearchPagingSource(service = service, query = query)
+        }
+    ).liveData
+
 }

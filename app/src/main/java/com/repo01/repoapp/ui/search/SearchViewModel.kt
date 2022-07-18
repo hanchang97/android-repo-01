@@ -1,53 +1,26 @@
 package com.repo01.repoapp.ui.search
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
+import androidx.paging.PagingData
+import androidx.paging.cachedIn
 import com.repo01.repoapp.data.model.SearchItemModel
 import com.repo01.repoapp.data.repository.SearchRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 import javax.inject.Inject
-import kotlin.math.ln
-import kotlin.math.pow
 
 @HiltViewModel
 class SearchViewModel @Inject constructor(
     private val repository: SearchRepository
 ) : ViewModel() {
-    private val _searchResult = MutableLiveData<List<SearchItemModel>>()
-    val searchResult: LiveData<List<SearchItemModel>> = _searchResult
 
-    private var searchJob: Job? = null
+    private val currentQuery = MutableLiveData<String>()
 
-    fun searchRepositoriesByQuery(query: String) {
-        searchJob?.cancel()
-        searchJob = viewModelScope.launch {
-            delay(500)
-            val response = repository.getSearchRepositories(query)
-            if (response.isSuccessful) {
-                response.body()?.let {
-                    _searchResult.value = it.items.map { item ->
-                        SearchItemModel(
-                            repoName = item.name,
-                            ownerName = item.owner.login,
-                            avatarUrl = item.owner.avatarUrl,
-                            description = item.description,
-                            stargazers_count = getFormattedNumber(item.stargazersCount),
-                            language = item.language
-                        )
-                    }
-                }
-            }
-        }
+    private val _result = currentQuery.switchMap {
+        repository.getSearchRepositories(it).cachedIn(viewModelScope)
     }
+    val result: LiveData<PagingData<SearchItemModel>> = _result
 
-    private fun getFormattedNumber(count: Int): String {
-        if (count < 1000) return count.toString()
-        val exp = (ln(count.toDouble()) / ln(1000.0)).toInt()
-        return String.format("%.1f%c", count / 1000.0.pow(exp), "kMGTPE"[exp - 1])
+    fun searchRepos(query: String) {
+        currentQuery.value = query
     }
 }

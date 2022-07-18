@@ -9,7 +9,7 @@ interface SearchService {
     @GET("/search/repositories")
     suspend fun getSearchRepositories(
         @Query("q") query: String,
-        @Query("per_page") per_page: Int = 10,
-        @Query("page") page: Int = 1
+        @Query("per_page") per_page: Int? = 30,
+        @Query("page") page: Int? = 1
     ): Response<SearchResponse>
 }
