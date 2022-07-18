@@ -8,6 +8,7 @@ import androidx.core.view.isGone
 import androidx.core.view.isVisible
 import androidx.core.widget.doAfterTextChanged
 import androidx.databinding.DataBindingUtil
+import androidx.paging.LoadState
 import androidx.recyclerview.widget.DividerItemDecoration
 import com.repo01.repoapp.R
 import com.repo01.repoapp.databinding.ActivitySearchBinding
@@ -36,6 +37,7 @@ class SearchActivity : AppCompatActivity() {
         }
         initSearchEditText()
         initRecyclerView()
+        setLoadStateListener()
     }
 
     private fun initSearchEditText() {
@@ -69,6 +71,12 @@ class SearchActivity : AppCompatActivity() {
                     DividerItemDecoration(context, DividerItemDecoration.VERTICAL)
                 )
             }
+        }
+    }
+
+    private fun setLoadStateListener() {
+        adapter.addLoadStateListener { loadState ->
+            binding.progressBar.isVisible = loadState.source.refresh is LoadState.Loading
         }
     }
 
