@@ -73,8 +73,7 @@ class NotificationsFragment : Fragment(), ItemTouchHelperListener {
     }
 
     private fun getNotificationsData() {
-        //notificationsViewModel.getNotifications()
-        notificationsViewModel.getNotificationsRefactor(false)
+        notificationsViewModel.getNotifications(false)
     }
 
     private fun observeData() {

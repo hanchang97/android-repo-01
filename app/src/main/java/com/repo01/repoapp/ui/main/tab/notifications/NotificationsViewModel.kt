@@ -4,7 +4,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.repo01.repoapp.data.model.IssueItemModel
 import com.repo01.repoapp.data.model.NotificationsInfoModel
 import com.repo01.repoapp.data.model.NotificationsItemModel
 import com.repo01.repoapp.data.repository.IssueRepository
@@ -34,10 +33,10 @@ class NotificationsViewModel @Inject constructor(
     private val _notificationState = MutableLiveData<UiState<List<NotificationsInfoModel>>>()
     val notificationState: LiveData<UiState<List<NotificationsInfoModel>>> = _notificationState
 
-    fun getNotificationsRefactor(all: Boolean) {
+    fun getNotifications(all: Boolean) {
         _notificationState.value = UiState.Loading
         viewModelScope.launch {
-            _notificationState.value = notificationsRepository.getNotificationsRefactor(all)
+            _notificationState.value = notificationsRepository.getNotifications(all)
         }
     }
 

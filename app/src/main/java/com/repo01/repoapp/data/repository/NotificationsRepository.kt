@@ -6,10 +6,9 @@ import com.repo01.repoapp.ui.common.UiState
 import javax.inject.Inject
 
 class NotificationsRepository @Inject constructor(private val notificationsService: NotificationsService) {
-    suspend fun getNotifications(all: Boolean) = notificationsService.getNotifications(all)
     suspend fun readNotification(threadId: Long) = notificationsService.readNotifications(threadId)
 
-    suspend fun getNotificationsRefactor(all: Boolean): UiState<List<NotificationsInfoModel>> {
+    suspend fun getNotifications(all: Boolean): UiState<List<NotificationsInfoModel>> {
         runCatching {
             notificationsService.getNotifications(all)
         }.onSuccess { response ->
