@@ -11,9 +11,12 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.repo01.repoapp.R
 import com.repo01.repoapp.databinding.FragmentNotificationsBinding
+import com.repo01.repoapp.ui.common.UiState
 import com.repo01.repoapp.ui.main.tab.notifications.adapter.NotificationsItemAdapter
+import com.repo01.repoapp.util.PrintLog
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -46,18 +49,32 @@ class NotificationsFragment : Fragment(), ItemTouchHelperListener {
     }
 
     private fun setRecyclerView() {
-        val swipeHelper = NotificationsSwipeHelper(this, ContextCompat.getDrawable(requireContext(), R.drawable.ic_check)!!)
+        val swipeHelper = NotificationsSwipeHelper(
+            this,
+            ContextCompat.getDrawable(requireContext(), R.drawable.ic_check)!!
+        )
         val itemTouchHelper = ItemTouchHelper(swipeHelper)
         itemTouchHelper.attachToRecyclerView(binding.rvNotificationsList)
 
         binding.rvNotificationsList.apply {
             adapter = notificationsAdpater
             layoutManager = LinearLayoutManager(requireContext())
+
+            addOnScrollListener(object : RecyclerView.OnScrollListener() {
+                override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                    super.onScrolled(recyclerView, dx, dy)
+
+                    if (!binding.rvNotificationsList.canScrollVertically(1)) {
+                        PrintLog.printLog("스크롤 최하단 도착")
+                    }
+                }
+            })
         }
     }
 
     private fun getNotificationsData() {
-        notificationsViewModel.getNotifications()
+        //notificationsViewModel.getNotifications()
+        notificationsViewModel.getNotificationsRefactor(false)
     }
 
     private fun observeData() {
@@ -69,9 +86,29 @@ class NotificationsFragment : Fragment(), ItemTouchHelperListener {
         notificationsViewModel.notificationList.observe(viewLifecycleOwner) {
             notificationsAdpater.submitList(it.toList())
         }
+
+        notificationsViewModel.notificationState.observe(viewLifecycleOwner) {
+            when (it) {
+                is UiState.Loading -> {
+                    // progressbar 추가예정
+                    notificationsViewModel.setProgressBarVisibility(true)
+                }
+                is UiState.Success -> {
+                    notificationsViewModel.setProgressBarVisibility(false)
+                    notificationsViewModel.getAdditionalNotificationsInfo(it.data)
+                }
+                is UiState.Error -> {
+                    notificationsViewModel.setProgressBarVisibility(false)
+                    // Error 처리하기
+                }
+                is UiState.Empty -> {
+                    notificationsViewModel.setProgressBarVisibility(false)
+                }
+            }
+        }
     }
 
-    private fun observeProgressBarVisible(){
+    private fun observeProgressBarVisible() {
         notificationsViewModel.progressBarVisible.observe(viewLifecycleOwner) {
             binding.pbLoading.isVisible = it
         }

@@ -10,6 +10,7 @@ import com.repo01.repoapp.data.model.NotificationsItemModel
 import com.repo01.repoapp.data.repository.IssueRepository
 import com.repo01.repoapp.data.repository.NotificationsRepository
 import com.repo01.repoapp.data.repository.OrganizationRepository
+import com.repo01.repoapp.ui.common.UiState
 import com.repo01.repoapp.util.PrintLog
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.async
@@ -29,25 +30,21 @@ class NotificationsViewModel @Inject constructor(
 
     private val _progressBarVisible = MutableLiveData<Boolean>()
     val progressBarVisible: LiveData<Boolean> = _progressBarVisible
-    // UI State 관리 리팩토링 에정 (loading, success, error)
 
-    fun getNotifications() {
-        _progressBarVisible.value = true
+    private val _notificationState = MutableLiveData<UiState<List<NotificationsInfoModel>>>()
+    val notificationState: LiveData<UiState<List<NotificationsInfoModel>>> = _notificationState
+
+    fun getNotificationsRefactor(all: Boolean) {
+        _notificationState.value = UiState.Loading
         viewModelScope.launch {
-            // 아직 읽지 않은 알림 = false
-            val response = notificationsRepository.getNotifications(false)
-
-            if (response.isSuccessful) {
-                response.body()?.let {
-                    val list = it.map { noti -> noti.mapNotificationsMoedel() }
-                    getAdditionalNotificationsInfo(list)
-                }
-            }
+            _notificationState.value = notificationsRepository.getNotificationsRefactor(all)
         }
     }
 
     fun getAdditionalNotificationsInfo(list: List<NotificationsInfoModel>) {
         val resultList = List(list.size) { NotificationsItemModel() }
+        setProgressBarVisibility(true)
+
         viewModelScope.launch {
             (0..list.size - 1).map {
                 val str = list[it].issueUrl.substring(8, list[it].issueUrl.length)
@@ -87,7 +84,7 @@ class NotificationsViewModel @Inject constructor(
             }
 
             _notificationList.value = resultList
-            _progressBarVisible.value = false
+            setProgressBarVisibility(false)
         }
     }
 
@@ -102,5 +99,9 @@ class NotificationsViewModel @Inject constructor(
                 PrintLog.printLog("read error")
             }
         }
+    }
+
+    fun setProgressBarVisibility(isVisible: Boolean){
+        _progressBarVisible.value = isVisible
     }
 }
