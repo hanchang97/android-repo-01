@@ -64,16 +64,35 @@ class NotificationsFragment : Fragment(), ItemTouchHelperListener {
                 override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                     super.onScrolled(recyclerView, dx, dy)
 
+                    val layoutManager = binding.rvNotificationsList.layoutManager
+                    PrintLog.printLog("현재 보이는 마지막 : ${(layoutManager as LinearLayoutManager).findLastCompletelyVisibleItemPosition()}")
+
                     if (!binding.rvNotificationsList.canScrollVertically(1)) {
                         PrintLog.printLog("스크롤 최하단 도착")
+
+                        val lastVisibleItemPosition = (layoutManager as LinearLayoutManager).findLastCompletelyVisibleItemPosition()
+                        if(lastVisibleItemPosition == notificationsAdpater.itemCount - 1) {
+                            if (notificationsViewModel.notificationState.value != UiState.Loading
+                                && notificationsViewModel.addtionalNotificationState != UiState.Loading
+                            ) {
+                                notificationsViewModel.getNotifications(
+                                    false,
+                                    notificationsViewModel.currentPage
+                                )
+                                PrintLog.printLog("${notificationsViewModel.currentPage} page 호출!")
+                            }
+                        }
                     }
                 }
             })
+
+            // 페이지 당 로드 데이터 개수 10개로 하는 경우에만 다다음 페이지까지 바로 호출하게 됨 -> 테스트 필요
+            // 8 로 설정해둔 상태
         }
     }
 
     private fun getNotificationsData() {
-        notificationsViewModel.getNotifications(false)
+        notificationsViewModel.getNotifications(false, notificationsViewModel.currentPage)
     }
 
     private fun observeData() {

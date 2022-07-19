@@ -8,9 +8,9 @@ import javax.inject.Inject
 class NotificationsRepository @Inject constructor(private val notificationsService: NotificationsService) {
     suspend fun readNotification(threadId: Long) = notificationsService.readNotifications(threadId)
 
-    suspend fun getNotifications(all: Boolean): UiState<List<NotificationsInfoModel>> {
+    suspend fun getNotifications(all: Boolean, page: Int): UiState<List<NotificationsInfoModel>> {
         runCatching {
-            notificationsService.getNotifications(all)
+            notificationsService.getNotifications(all, page)
         }.onSuccess { response ->
             return if (response.body() == null) {
                 UiState.Error("Load Notifications Data Error")
