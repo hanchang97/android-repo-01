@@ -29,7 +29,7 @@ data class ProfileResponse(
     @SerializedName("total_private_repos")
     val privateRepoCount: Int
 ) {
-    fun toProfileModel() = ProfileModel(
+    fun toProfileModel(starredCount: Int) = ProfileModel(
         id = id,
         userName = userName,
         displayName = displayName,
@@ -40,7 +40,8 @@ data class ProfileResponse(
         state = state.setNullOrValue(),
         followers = followers,
         following = following,
-        repoCount = publicRepoCount + privateRepoCount
+        repoCount = publicRepoCount + privateRepoCount,
+        starredCount = starredCount
     )
 
     private fun String?.setNullOrValue() = if (this.isNullOrEmpty()) null else this

@@ -2,10 +2,14 @@ package com.repo01.repoapp.ui.profile
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.viewModels
+import androidx.core.view.isGone
+import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
 import com.repo01.repoapp.R
 import com.repo01.repoapp.databinding.ActivityProfileBinding
+import com.repo01.repoapp.ui.common.UiState
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -26,13 +30,22 @@ class ProfileActivity : AppCompatActivity() {
     }
 
     private fun observeData() {
-        viewModel.userInfo.observe(this) {
-            binding.userInfo = it
-            binding.layoutProfileContainer.repoCount = it.repoCount
-        }
-
-        viewModel.starredCount.observe(this) {
-            binding.layoutProfileContainer.starredCount = it
+        viewModel.uiState.observe(this) { state ->
+            when (state) {
+                is UiState.Loading -> {
+                    binding.progressBar.isVisible = true
+                }
+                is UiState.Success -> {
+                    binding.progressBar.isGone = true
+                    binding.userInfo = state.data
+                    binding.layoutProfileContainer.repoCount = state.data.repoCount
+                    binding.layoutProfileContainer.starredCount = state.data.starredCount
+                }
+                else -> {
+                    binding.progressBar.isGone = true
+                    Toast.makeText(this, "Error", Toast.LENGTH_SHORT).show()
+                }
+            }
         }
     }
 }

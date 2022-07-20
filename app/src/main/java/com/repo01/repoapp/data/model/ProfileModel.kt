@@ -11,5 +11,6 @@ data class ProfileModel(
     val state: String?,
     val followers: Int,
     val following: Int,
-    val repoCount: Int
+    val repoCount: Int,
+    val starredCount: Int
 )
