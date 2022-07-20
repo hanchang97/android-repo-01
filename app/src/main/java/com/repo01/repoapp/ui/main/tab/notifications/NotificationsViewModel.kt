@@ -25,7 +25,7 @@ class NotificationsViewModel @Inject constructor(
 ) : ViewModel() {
 
     private val _notificationList = MutableLiveData<List<NotificationsItemModel>>()
-    private val notificationListForUpdate = mutableListOf<NotificationsItemModel>()
+    private var notificationListForUpdate = mutableListOf<NotificationsItemModel>()
     val notificationList: LiveData<List<NotificationsItemModel>> = _notificationList
 
     private val _progressBarVisible = MutableLiveData<Boolean>()
@@ -123,10 +123,6 @@ class NotificationsViewModel @Inject constructor(
 
     fun deleteDataForUpdate(){
         val deleteStartInx = (currentPage - 1) * 10
-        var inx = notificationListForUpdate.size - 1
-        while(inx >= deleteStartInx){
-            notificationListForUpdate.removeLast()
-            inx--
-        }
+        notificationListForUpdate = notificationListForUpdate.subList(0, deleteStartInx)
     }
 }
