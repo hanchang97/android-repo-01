@@ -26,6 +26,8 @@ class NotificationsFragment : Fragment(), ItemTouchHelperListener {
     private val notificationsViewModel: NotificationsViewModel by viewModels()
     private val notificationsAdpater by lazy { NotificationsItemAdapter() }
 
+    private var isFirstTimeCall = true
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -61,6 +63,23 @@ class NotificationsFragment : Fragment(), ItemTouchHelperListener {
             layoutManager = LinearLayoutManager(requireContext())
 
             addOnScrollListener(object : RecyclerView.OnScrollListener() {
+
+                override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                    super.onScrollStateChanged(recyclerView, newState)
+
+                    when (newState) {
+                        RecyclerView.SCROLL_STATE_IDLE -> {
+                            PrintLog.printLog("SCROLL_STATE_IDLE")
+                            if (isFirstTimeCall) isFirstTimeCall = false
+                        }
+                        RecyclerView.SCROLL_STATE_DRAGGING -> {
+                            PrintLog.printLog("SCROLL_STATE_DRAGGING")
+                            isFirstTimeCall = true
+                        }
+                        RecyclerView.SCROLL_STATE_SETTLING -> PrintLog.printLog("SCROLL_STATE_SETTLING")
+                    }
+                }
+
                 override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                     super.onScrolled(recyclerView, dx, dy)
 
@@ -70,11 +89,16 @@ class NotificationsFragment : Fragment(), ItemTouchHelperListener {
                     if (!binding.rvNotificationsList.canScrollVertically(1)) {
                         PrintLog.printLog("스크롤 최하단 도착")
 
-                        val lastVisibleItemPosition = (layoutManager as LinearLayoutManager).findLastCompletelyVisibleItemPosition()
-                        if(lastVisibleItemPosition == notificationsAdpater.itemCount - 1) {
-                            if (notificationsViewModel.notificationState.value != UiState.Loading
-                                && notificationsViewModel.addtionalNotificationState != UiState.Loading
+                        val lastVisibleItemPosition =
+                            (layoutManager as LinearLayoutManager).findLastVisibleItemPosition()
+                        if (lastVisibleItemPosition == notificationsAdpater.itemCount - 1) {
+                            if (notificationsViewModel.addtionalNotificationState != UiState.Loading &&
+                                notificationsViewModel.notificationState.value != UiState.Loading &&
+                                !notificationsViewModel.testFlag &&
+                                isFirstTimeCall
+
                             ) {
+                                notificationsViewModel.testFlag = true
                                 notificationsViewModel.getNotifications(
                                     false,
                                     notificationsViewModel.currentPage
@@ -85,9 +109,6 @@ class NotificationsFragment : Fragment(), ItemTouchHelperListener {
                     }
                 }
             })
-
-            // 페이지 당 로드 데이터 개수 10개로 하는 경우에만 다다음 페이지까지 바로 호출하게 됨 -> 테스트 필요
-            // 8 로 설정해둔 상태
         }
     }
 
@@ -103,6 +124,8 @@ class NotificationsFragment : Fragment(), ItemTouchHelperListener {
     private fun observeNotificationsData() {
         notificationsViewModel.notificationList.observe(viewLifecycleOwner) {
             notificationsAdpater.submitList(it.toList())
+
+            notificationsViewModel.testFlag = false
         }
 
         notificationsViewModel.notificationState.observe(viewLifecycleOwner) {

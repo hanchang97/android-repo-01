@@ -38,6 +38,8 @@ class NotificationsViewModel @Inject constructor(
     var currentPage = 1
     var addtionalNotificationState: UiState<Any> = UiState.Empty
 
+    var testFlag = false
+
     fun getNotifications(all: Boolean, page: Int) {
         _notificationState.value = UiState.Loading
         viewModelScope.launch {
@@ -93,6 +95,7 @@ class NotificationsViewModel @Inject constructor(
             setProgressBarVisibility(false)
             addtionalNotificationState = UiState.Success(Any())
             if(resultList.isNotEmpty()) currentPage++
+
             // 추가 api 호출 시 에러 처리 필요
         }
     }

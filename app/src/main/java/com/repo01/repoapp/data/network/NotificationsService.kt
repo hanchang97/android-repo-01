@@ -12,7 +12,7 @@ interface NotificationsService {
     suspend fun getNotifications(
         @Query("all") all: Boolean,
         @Query("page") page: Int,
-        @Query("per_page") per_page: Int = 8
+        @Query("per_page") per_page: Int = 10
     ): Response<List<NotificationsInfoResponse>>
 
     @PATCH("notifications/threads/{thread_id}")
