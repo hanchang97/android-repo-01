@@ -108,10 +108,25 @@ class NotificationsViewModel @Inject constructor(
             else{
                 PrintLog.printLog("read error")
             }
+            getNotifications(false) // 읽음 처리 후 해당 아이템의 페이지부터 다시 데이터 로드
         }
     }
 
     fun setProgressBarVisibility(isVisible: Boolean){
         _progressBarVisible.value = isVisible
+    }
+
+    fun deleteItem(position: Int){
+        notificationListForUpdate.removeAt(position)
+        _notificationList.value = notificationListForUpdate
+    }
+
+    fun deleteDataForUpdate(){
+        val deleteStartInx = (currentPage - 1) * 10
+        var inx = notificationListForUpdate.size - 1
+        while(inx >= deleteStartInx){
+            notificationListForUpdate.removeLast()
+            inx--
+        }
     }
 }
