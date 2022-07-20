@@ -95,7 +95,6 @@ class NotificationsFragment : Fragment(), ItemTouchHelperListener {
                             if (notificationsViewModel.addtionalNotificationState != UiState.Loading &&
                                 notificationsViewModel.notificationState.value != UiState.Loading &&
                                 isFirstTimeCall
-
                             ) {
                                 notificationsViewModel.getNotifications(false)
                                 PrintLog.printLog("${notificationsViewModel.currentPage} page 호출!")
@@ -151,6 +150,15 @@ class NotificationsFragment : Fragment(), ItemTouchHelperListener {
     override fun itemSwipe(position: Int) {
         // TODO - position의 id 값으로 읽음 처리 하기
         val threadId = notificationsAdpater.currentList[position].id
+
+        val itemPage = position / 10 + 1
+        PrintLog.printLog("item position : $position")
+        PrintLog.printLog("item page : $itemPage")
+
+        notificationsViewModel.currentPage = itemPage
+        notificationsViewModel.deleteItem(position)
+        notificationsViewModel.deleteDataForUpdate()
+
         notificationsViewModel.readNotification(threadId.toLong())
     }
 }
