@@ -1,6 +1,7 @@
 package com.repo01.repoapp.ui.search
 
 import android.os.Bundle
+import android.view.MotionEvent
 import android.view.inputmethod.InputMethodManager
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -8,7 +9,6 @@ import androidx.core.view.isGone
 import androidx.core.view.isVisible
 import androidx.core.widget.doAfterTextChanged
 import androidx.databinding.DataBindingUtil
-import androidx.paging.LoadState
 import androidx.recyclerview.widget.DividerItemDecoration
 import com.repo01.repoapp.R
 import com.repo01.repoapp.databinding.ActivitySearchBinding
@@ -37,13 +37,12 @@ class SearchActivity : AppCompatActivity() {
         }
         initSearchEditText()
         initRecyclerView()
-        setLoadStateListener()
     }
 
     private fun initSearchEditText() {
         with(binding.etSearch) {
-            this.setOnFocusChangeListener { _, hasFocus ->
-                this.setCompoundDrawablesWithIntrinsicBounds(
+            setOnFocusChangeListener { _, hasFocus ->
+                setCompoundDrawablesWithIntrinsicBounds(
                     if (hasFocus.not()) R.drawable.ic_search else 0,
                     0,
                     if (hasFocus) R.drawable.ic_variant10 else 0,
@@ -53,9 +52,20 @@ class SearchActivity : AppCompatActivity() {
                     inputMethodManager.hideSoftInputFromWindow(this.windowToken, 0)
                 }
             }
+            setOnTouchListener { _, event ->
+                performClick()
+                if (event.action == MotionEvent.ACTION_UP) {
+                    if (event.rawX >= (this.right - this.compoundDrawables[2].bounds.width() - this.compoundDrawablePadding)) {
+                        text = null
+                        return@setOnTouchListener true
+                    }
+                }
+                false
+            }
             requestFocus()
             doAfterTextChanged {
                 if (it.toString().isEmpty()) {
+                    viewModel.cancelSearchJob()
                     hideSearchResultRecyclerView()
                 } else {
                     viewModel.searchRepos(it.toString())
@@ -74,16 +84,12 @@ class SearchActivity : AppCompatActivity() {
         }
     }
 
-    private fun setLoadStateListener() {
-        adapter.addLoadStateListener { loadState ->
-            binding.progressBar.isVisible = loadState.source.refresh is LoadState.Loading
-        }
-    }
-
     private fun observeData() {
         viewModel.result.observe(this) {
-            adapter.submitData(lifecycle, it)
-            showSearchResultRecyclerView()
+            if (binding.etSearch.text.toString().isNotEmpty()) {
+                adapter.submitData(lifecycle, it)
+                showSearchResultRecyclerView()
+            }
         }
     }
 
