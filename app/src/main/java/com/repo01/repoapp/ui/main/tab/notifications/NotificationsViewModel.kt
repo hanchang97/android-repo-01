@@ -38,7 +38,6 @@ class NotificationsViewModel @Inject constructor(
     var currentPage = 1
     var addtionalNotificationState: UiState<Any> = UiState.Empty
 
-    var testFlag = false
 
     fun getNotifications(all: Boolean, page: Int) {
         _notificationState.value = UiState.Loading

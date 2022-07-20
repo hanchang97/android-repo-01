@@ -94,11 +94,9 @@ class NotificationsFragment : Fragment(), ItemTouchHelperListener {
                         if (lastVisibleItemPosition == notificationsAdpater.itemCount - 1) {
                             if (notificationsViewModel.addtionalNotificationState != UiState.Loading &&
                                 notificationsViewModel.notificationState.value != UiState.Loading &&
-                                !notificationsViewModel.testFlag &&
                                 isFirstTimeCall
 
                             ) {
-                                notificationsViewModel.testFlag = true
                                 notificationsViewModel.getNotifications(
                                     false,
                                     notificationsViewModel.currentPage
@@ -124,8 +122,6 @@ class NotificationsFragment : Fragment(), ItemTouchHelperListener {
     private fun observeNotificationsData() {
         notificationsViewModel.notificationList.observe(viewLifecycleOwner) {
             notificationsAdpater.submitList(it.toList())
-
-            notificationsViewModel.testFlag = false
         }
 
         notificationsViewModel.notificationState.observe(viewLifecycleOwner) {
