@@ -97,10 +97,7 @@ class NotificationsFragment : Fragment(), ItemTouchHelperListener {
                                 isFirstTimeCall
 
                             ) {
-                                notificationsViewModel.getNotifications(
-                                    false,
-                                    notificationsViewModel.currentPage
-                                )
+                                notificationsViewModel.getNotifications(false)
                                 PrintLog.printLog("${notificationsViewModel.currentPage} page 호출!")
                             }
                         }
@@ -111,7 +108,7 @@ class NotificationsFragment : Fragment(), ItemTouchHelperListener {
     }
 
     private fun getNotificationsData() {
-        notificationsViewModel.getNotifications(false, notificationsViewModel.currentPage)
+        notificationsViewModel.getNotifications(false)
     }
 
     private fun observeData() {

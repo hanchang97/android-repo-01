@@ -21,8 +21,7 @@ import javax.inject.Inject
 @HiltViewModel
 class NotificationsViewModel @Inject constructor(
     private val issueRepository: IssueRepository,
-    private val notificationsRepository: NotificationsRepository,
-    private val organizationRepository: OrganizationRepository
+    private val notificationsRepository: NotificationsRepository
 ) : ViewModel() {
 
     private val _notificationList = MutableLiveData<List<NotificationsItemModel>>()
@@ -39,10 +38,10 @@ class NotificationsViewModel @Inject constructor(
     var addtionalNotificationState: UiState<Any> = UiState.Empty
 
 
-    fun getNotifications(all: Boolean, page: Int) {
+    fun getNotifications(all: Boolean) {
         _notificationState.value = UiState.Loading
         viewModelScope.launch {
-            _notificationState.value = notificationsRepository.getNotifications(all, page)
+            _notificationState.value = notificationsRepository.getNotifications(all, currentPage)
         }
     }
 
