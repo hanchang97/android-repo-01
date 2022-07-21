@@ -27,20 +27,11 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+        binding.lifecycleOwner = this
+        binding.vm = viewModel
 
-        initView()
         setTabLayoutWithViewPager()
         observeData()
-    }
-
-    private fun initView() {
-        binding.ivSearch.setOnClickListener {
-            startActivity(Intent(this, SearchActivity::class.java))
-        }
-
-        binding.ivProfile.setOnClickListener {
-            startActivity(Intent(this, ProfileActivity::class.java))
-        }
     }
 
     private fun setTabLayoutWithViewPager() {
@@ -57,6 +48,12 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun observeData() {
+        viewModel.searchClickEvent.observe(this) {
+            startActivity(Intent(this, SearchActivity::class.java))
+        }
+        viewModel.profileClickEvent.observe(this) {
+            startActivity(Intent(this, ProfileActivity::class.java))
+        }
         viewModel.uiState.observe(this) { state ->
             when (state) {
                 is UiState.Loading -> {
@@ -65,9 +62,10 @@ class MainActivity : AppCompatActivity() {
                 is UiState.Success -> {
                     binding.imageUrl = state.data.avatarUrl
                 }
-                else -> {
-                    Toast.makeText(this, "프로필을 불러오지 못했습니다.", Toast.LENGTH_SHORT).show()
+                is UiState.Error -> {
+                    Toast.makeText(this, state.message, Toast.LENGTH_SHORT).show()
                 }
+                is UiState.Empty -> {}
             }
         }
     }

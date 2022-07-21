@@ -2,18 +2,20 @@ package com.repo01.repoapp.ui.login
 
 import android.content.Intent
 import android.net.Uri
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isGone
+import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
 import com.repo01.repoapp.BuildConfig
 import com.repo01.repoapp.R
 import com.repo01.repoapp.data.network.TokenInterceptor
 import com.repo01.repoapp.databinding.ActivityLoginBinding
+import com.repo01.repoapp.ui.common.UiState
 import com.repo01.repoapp.ui.main.MainActivity
 import com.repo01.repoapp.util.Auth
-import com.repo01.repoapp.util.PrintLog
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -28,10 +30,8 @@ class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_login)
-
-        binding.btnLogin.setOnClickListener {
-            login()
-        }
+        binding.lifecycleOwner = this
+        binding.vm = viewModel
 
         observeData()
     }
@@ -49,13 +49,33 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun observeData() {
-        viewModel.token.observe(this) {
-            if (it.isNullOrEmpty()) {
-                Toast.makeText(this, R.string.login_fail_message, Toast.LENGTH_SHORT).show()
-            } else {
-                interceptor.setToken(it)
-                startActivity(Intent(this, MainActivity::class.java))
-                finish()
+        viewModel.loginClickEvent.observe(this) {
+            login()
+        }
+        viewModel.uiState.observe(this) { state ->
+            when (state) {
+                is UiState.Loading -> {
+                    binding.progressBar.isVisible = true
+                    binding.btnLogin.isEnabled = false
+                }
+                is UiState.Success -> {
+                    binding.progressBar.isGone = true
+                    interceptor.setToken(state.data)
+                    Toast.makeText(this, "로그인 성공!", Toast.LENGTH_SHORT).show()
+                    startActivity(Intent(this, MainActivity::class.java))
+                    finish()
+                }
+                is UiState.Empty -> {
+                    binding.progressBar.isGone = true
+                    Toast.makeText(this, R.string.login_fail_message, Toast.LENGTH_SHORT).show()
+                    binding.btnLogin.isEnabled = true
+
+                }
+                is UiState.Error -> {
+                    binding.progressBar.isGone = true
+                    Toast.makeText(this, state.message, Toast.LENGTH_SHORT).show()
+                    binding.btnLogin.isEnabled = true
+                }
             }
         }
     }
@@ -64,10 +84,8 @@ class LoginActivity : AppCompatActivity() {
         super.onResume()
 
         val uri = intent.data
-        PrintLog.printLog(uri.toString())
         if (uri != null && uri.toString().startsWith(Auth.REDIRECT_URI)) {
             uri.getQueryParameter("code")?.let {
-                PrintLog.printLog(it.toString())
                 viewModel.getAccessToken(it)
             }
         }

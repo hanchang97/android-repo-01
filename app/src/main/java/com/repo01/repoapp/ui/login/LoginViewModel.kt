@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.repo01.repoapp.data.repository.LoginRepository
-import com.repo01.repoapp.util.PrintLog
+import com.repo01.repoapp.ui.common.UiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -14,18 +14,20 @@ import javax.inject.Inject
 class LoginViewModel @Inject constructor(
     private val repository: LoginRepository
 ) : ViewModel() {
-    private val _token = MutableLiveData<String>()
-    val token: LiveData<String> = _token
+    private val _uiState = MutableLiveData<UiState<String>>()
+    val uiState: LiveData<UiState<String>> = _uiState
 
-    fun getAccessToken(code: String) =
+    private val _loginClickEvent = MutableLiveData<Unit>()
+    val loginClickEvent: LiveData<Unit> = _loginClickEvent
+
+    fun getAccessToken(code: String) {
+        _uiState.value = UiState.Loading
         viewModelScope.launch {
-            val response = repository.getAccessToken(code = code)
-
-            if (response.isSuccessful) {
-                response.body()?.let {
-                    _token.value = it.accessToken
-                    PrintLog.printLog("token : ${it.accessToken}")
-                }
-            }
+            _uiState.value = repository.getAccessToken(code = code)
         }
+    }
+
+    fun onLoginButtonClicked() {
+        _loginClickEvent.postValue(Unit)
+    }
 }
