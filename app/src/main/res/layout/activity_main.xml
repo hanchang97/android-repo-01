@@ -84,6 +84,8 @@
             app:layout_constraintTop_toBottomOf="@id/cl_top_bar"
             app:tabIndicatorHeight="0dp"
             app:tabMode="fixed"
+            app:tabMaxWidth="0dp"
+            app:tabGravity="fill"
             app:tabRippleColor="@null" />
 
         <androidx.viewpager2.widget.ViewPager2
