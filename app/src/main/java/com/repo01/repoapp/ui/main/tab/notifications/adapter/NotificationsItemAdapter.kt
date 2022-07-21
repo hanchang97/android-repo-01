@@ -15,7 +15,6 @@ class NotificationsItemAdapter: ListAdapter<NotificationsItemModel, Notification
         RecyclerView.ViewHolder(binding.root) {
         fun bind(notificationsItem: NotificationsItemModel) {
             binding.notificationsItemModel = notificationsItem
-            binding.updateDate = DateCalculator.parseDate(notificationsItem.updatedAt)
         }
     }
 

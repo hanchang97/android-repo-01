@@ -2,6 +2,7 @@ package com.repo01.repoapp.data.network.response.issue
 
 import com.google.gson.annotations.SerializedName
 import com.repo01.repoapp.data.model.IssueItemModel
+import com.repo01.repoapp.util.DateCalculator
 
 data class IssueResponse(
     @SerializedName("id")
@@ -25,7 +26,7 @@ data class IssueResponse(
     fun mapIssueItemMoedel() = IssueItemModel(
         id = id,
         state = state,
-        createdAt = createdAt,
+        createdAt = DateCalculator.parseDate(createdAt),
         title = title,
         number = number,
         fullName = repository.fullName

@@ -16,7 +16,6 @@ class IssueItemAdapter : ListAdapter<IssueItemModel, IssueItemAdapter.IssueItemV
         RecyclerView.ViewHolder(binding.root) {
         fun bind(issueItem: IssueItemModel) {
             binding.issueItemModel = issueItem
-            binding.createDate = DateCalculator.parseDate(issueItem.createdAt)
 
             when (issueItem.state) {
                 "open" -> binding.ivState.setImageResource(R.drawable.ic_issueopen)

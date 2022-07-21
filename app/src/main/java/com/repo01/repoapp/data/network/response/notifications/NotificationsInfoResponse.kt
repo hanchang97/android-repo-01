@@ -2,6 +2,7 @@ package com.repo01.repoapp.data.network.response.notifications
 
 import com.google.gson.annotations.SerializedName
 import com.repo01.repoapp.data.model.NotificationsInfoModel
+import com.repo01.repoapp.util.DateCalculator
 
 data class NotificationsInfoResponse(
     @SerializedName("id")
@@ -36,7 +37,7 @@ data class NotificationsInfoResponse(
 
     fun mapNotificationsMoedel() = NotificationsInfoModel(
         id = id,
-        updatedAt = updatedAt,
+        updatedAt = DateCalculator.parseDate(updatedAt),
         title = subject.title,
         fullName = repository.fullName,
         org = repository.owner.org,
