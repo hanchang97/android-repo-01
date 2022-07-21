@@ -6,9 +6,6 @@ import java.util.*
 object DateCalculator {
 
     fun parseDate(dateStr: String): String {
-
-        PrintLog.printLog("updated at : $dateStr")
-
         try {
             val parser = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.KOREAN)
             val currentDate = Calendar.getInstance().apply {
@@ -24,12 +21,10 @@ object DateCalculator {
             val differDay = (difference / 24 / 60 / 60 / 1000).toInt()
             return when (differDay) {
                 0 -> {
-                    PrintLog.printLog("오늘")
-                    return "오늘"
+                    "오늘"
                 }
                 else -> {
-                    PrintLog.printLog("${differDay}일 전")
-                    return "${differDay}일 전"
+                    "${differDay}일 전"
                 }
             }
         } catch (e: Exception) {
