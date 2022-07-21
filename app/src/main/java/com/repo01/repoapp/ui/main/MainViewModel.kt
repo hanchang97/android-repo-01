@@ -18,6 +18,12 @@ class MainViewModel @Inject constructor(
     private val _uiState = MutableLiveData<UiState<ProfileModel>>()
     val uiState: LiveData<UiState<ProfileModel>> = _uiState
 
+    private val _searchClickEvent = MutableLiveData<Unit>()
+    val searchClickEvent : LiveData<Unit> = _searchClickEvent
+
+    private val _profileClickEvent = MutableLiveData<Unit>()
+    val profileClickEvent : LiveData<Unit> = _profileClickEvent
+
     init {
         getUserInformation()
     }
@@ -27,5 +33,13 @@ class MainViewModel @Inject constructor(
         viewModelScope.launch {
             _uiState.value = repository.getUserInformation()
         }
+    }
+
+    fun onSearchIconClicked() {
+        _searchClickEvent.postValue(Unit)
+    }
+
+    fun onProfileIconClicked() {
+        _profileClickEvent.postValue(Unit)
     }
 }

@@ -6,9 +6,12 @@
     <data>
 
         <variable
+            name="vm"
+            type="com.repo01.repoapp.ui.main.MainViewModel" />
+
+        <variable
             name="imageUrl"
             type="String" />
-
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -56,6 +59,7 @@
                 android:layout_height="24dp"
                 android:layout_marginEnd="24dp"
                 app:imageUrl="@{imageUrl}"
+                android:onClick="@{() -> vm.onProfileIconClicked()}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -67,6 +71,7 @@
                 android:layout_height="24dp"
                 android:layout_marginEnd="24dp"
                 android:scaleType="fitXY"
+                android:onClick="@{() -> vm.onSearchIconClicked()}"
                 android:src="@drawable/ic_search"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@id/iv_profile"
@@ -84,8 +89,6 @@
             app:layout_constraintTop_toBottomOf="@id/cl_top_bar"
             app:tabIndicatorHeight="0dp"
             app:tabMode="fixed"
-            app:tabMaxWidth="0dp"
-            app:tabGravity="fill"
             app:tabRippleColor="@null" />
 
         <androidx.viewpager2.widget.ViewPager2
