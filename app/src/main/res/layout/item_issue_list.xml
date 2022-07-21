@@ -8,6 +8,10 @@
         <variable
             name="issueItemModel"
             type="com.repo01.repoapp.data.model.IssueItemModel" />
+
+        <variable
+            name="createDate"
+            type="String" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -89,7 +93,7 @@
             android:id="@+id/tv_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="1일 전"
+            android:text="@{createDate}"
             android:textColor="@color/grey"
             android:textSize="14sp"
             app:layout_constraintBottom_toBottomOf="@id/tv_full_name_and_number"

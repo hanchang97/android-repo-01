@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.repo01.repoapp.data.model.NotificationsItemModel
 import com.repo01.repoapp.databinding.ItemNotificationsListBinding
+import com.repo01.repoapp.util.DateCalculator
 
 class NotificationsItemAdapter: ListAdapter<NotificationsItemModel, NotificationsItemAdapter.NotificationsItemViewHolder>(NotificationsDiffUtil) {
 
@@ -14,6 +15,7 @@ class NotificationsItemAdapter: ListAdapter<NotificationsItemModel, Notification
         RecyclerView.ViewHolder(binding.root) {
         fun bind(notificationsItem: NotificationsItemModel) {
             binding.notificationsItemModel = notificationsItem
+            binding.updateDate = DateCalculator.parseDate(notificationsItem.updatedAt)
         }
     }
 
