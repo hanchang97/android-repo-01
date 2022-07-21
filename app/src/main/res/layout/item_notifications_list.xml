@@ -56,10 +56,10 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:src="@drawable/ic_launcher_background"
-            app:layout_constraintBottom_toBottomOf="@id/tv_full_name"
+            app:layout_constraintBottom_toBottomOf="@id/tv_full_name_and_number"
             app:layout_constraintDimensionRatio="1:1"
             app:layout_constraintStart_toStartOf="@id/gl_vertical_begin"
-            app:layout_constraintTop_toTopOf="@id/tv_full_name"
+            app:layout_constraintTop_toTopOf="@id/tv_full_name_and_number"
             app:layout_constraintWidth_percent="0.065"
             app:shapeAppearanceOverlay="@style/circleImageView" />
 
@@ -73,29 +73,17 @@
             app:layout_constraintWidth_percent="0.022" />
 
         <TextView
-            android:id="@+id/tv_full_name"
+            android:id="@+id/tv_full_name_and_number"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:gravity="left|center_vertical"
-            android:maxLines="2"
-            android:text="@{notificationsItemModel.fullName}"
+            android:text="@{@string/notifications_data_fullname_and_number(notificationsItemModel.fullName, notificationsItemModel.issueNumber)}"
             android:textColor="@color/grey"
             android:textSize="14sp"
             app:layout_constraintEnd_toEndOf="@id/gl_vertical_55"
             app:layout_constraintStart_toEndOf="@id/view_empty_1"
             app:layout_constraintTop_toBottomOf="@id/view_top"
-            tools:text="sam/whatsinmygithub" />
-
-        <TextView
-            android:id="@+id/tv_number"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:maxLines="1"
-            android:text="@{@string/notifications_issue_number(notificationsItemModel.issueNumber)}"
-            android:textColor="@color/grey"
-            app:layout_constraintStart_toEndOf="@id/tv_full_name"
-            app:layout_constraintTop_toTopOf="@id/tv_full_name" />
+            tools:text="sam/whatsinmygithub  #1" />
 
         <!-- 몇일 전에 생성한 이슈인지 -->
         <TextView
@@ -105,9 +93,9 @@
             android:text="1일 전"
             android:textColor="@color/grey"
             android:textSize="14sp"
-            app:layout_constraintBottom_toBottomOf="@id/tv_full_name"
+            app:layout_constraintBottom_toBottomOf="@id/tv_full_name_and_number"
             app:layout_constraintEnd_toEndOf="@id/gl_vertical_end"
-            app:layout_constraintTop_toTopOf="@id/tv_full_name"
+            app:layout_constraintTop_toTopOf="@id/tv_full_name_and_number"
             tools:text="1일 전" />
 
         <View
@@ -115,7 +103,7 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             app:layout_constraintDimensionRatio="360:8"
-            app:layout_constraintTop_toBottomOf="@id/tv_full_name" />
+            app:layout_constraintTop_toBottomOf="@id/tv_full_name_and_number" />
 
         <TextView
             android:id="@+id/tv_title"
@@ -125,7 +113,7 @@
             android:text="@{notificationsItemModel.title}"
             android:textColor="@color/white"
             android:textSize="14sp"
-            app:layout_constraintStart_toStartOf="@id/tv_full_name"
+            app:layout_constraintStart_toStartOf="@id/tv_full_name_and_number"
             app:layout_constraintTop_toBottomOf="@id/view_empty_2"
             app:layout_constraintWidth_percent="0.55" />
 

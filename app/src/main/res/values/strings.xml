@@ -24,6 +24,7 @@
     <string name="profile_starred_count_title">Starred</string>
 
     <string name="issue_data_fullname_and_number">%s  #%s</string>
+    <string name="notifications_data_fullname_and_number">%s  #%d</string>
     <string name="profile_followers_and_following">%d Followers ・ %d Following</string>
     <string name="notifications_issue_number">#%d</string>
 </resources>
