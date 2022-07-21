@@ -4,11 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
         <variable
             name="notificationsItemModel"
             type="com.repo01.repoapp.data.model.NotificationsItemModel" />
-
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -91,7 +89,7 @@
             android:id="@+id/tv_last_update_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="1일 전"
+            android:text="@{notificationsItemModel.updatedAt}"
             android:textColor="@color/grey"
             android:textSize="14sp"
             app:layout_constraintBottom_toBottomOf="@id/tv_full_name_and_number"

@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.repo01.repoapp.R
 import com.repo01.repoapp.data.model.IssueItemModel
 import com.repo01.repoapp.databinding.ItemIssueListBinding
+import com.repo01.repoapp.util.DateCalculator
 
 class IssueItemAdapter : ListAdapter<IssueItemModel, IssueItemAdapter.IssueItemViewHolder>(IssueDiffUtil) {
 
