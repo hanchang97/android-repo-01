@@ -20,15 +20,27 @@ class IssueViewModel @Inject constructor(private val issueRepository: IssueRepos
 
     private val _issueState = MutableLiveData<UiState<List<IssueItemModel>>>()
     val issueState: LiveData<UiState<List<IssueItemModel>>> = _issueState
+    val issueListForUpdate = mutableListOf<IssueItemModel>()
+
+    var currentPage = 1
+    var currentState = "open"
 
     fun updateOptionIndex(inx: Int) {
         _optionIndex.value = inx
     }
 
-    fun getIssues(state: String) {
+    fun getIssues() {
         _issueState.value = UiState.Loading
         viewModelScope.launch {
-            _issueState.value = issueRepository.getIssues(state)
+            _issueState.value = issueRepository.getIssues(currentState, currentPage)
         }
+    }
+
+    fun resetPage(){
+        currentPage = 1
+    }
+
+    fun clearIssueListForUpdate(){
+        issueListForUpdate.clear()
     }
 }

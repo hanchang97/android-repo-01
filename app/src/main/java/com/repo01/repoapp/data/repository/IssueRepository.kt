@@ -9,9 +9,9 @@ class IssueRepository @Inject constructor(private val issueService: IssueService
     suspend fun getSpecificIssue(owner: String, repo: String, issueNumber: Int) =
         issueService.getSpecificIssue(owner, repo, issueNumber)
 
-    suspend fun getIssues(state: String): UiState<List<IssueItemModel>> {
+    suspend fun getIssues(state: String, page: Int): UiState<List<IssueItemModel>> {
         runCatching {
-            issueService.getIssues(state)
+            issueService.getIssues(state, page)
         }.onSuccess { response ->
             return if (response.body() == null) {
                 UiState.Error("Load Issue Data Error")

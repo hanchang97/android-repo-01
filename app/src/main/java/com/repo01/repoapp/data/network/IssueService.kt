@@ -11,8 +11,8 @@ interface IssueService {
     @GET("user/issues")
     suspend fun getIssues(
         @Query("state") state: String,
-        @Query("per_page") per_page: Int = 10,
-        @Query("page") page: Int = 1
+        @Query("page") page: Int,
+        @Query("per_page") per_page: Int = 10
     ): Response<List<IssueResponse>>
 
     @GET("repos/{owner}/{repo}/issues/{issue_number}")

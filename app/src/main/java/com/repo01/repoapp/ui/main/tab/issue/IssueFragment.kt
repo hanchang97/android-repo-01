@@ -6,10 +6,12 @@ import android.text.Html
 import android.view.*
 import androidx.annotation.MenuRes
 import androidx.appcompat.widget.PopupMenu
+import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.repo01.repoapp.R
 import com.repo01.repoapp.databinding.FragmentIssueBinding
 import com.repo01.repoapp.ui.common.UiState
@@ -24,6 +26,8 @@ class IssueFragment : Fragment() {
     private val issueViewModel: IssueViewModel by viewModels()
     private val issueAdapter by lazy { IssueItemAdapter() }
     private var filterBarActivate = false
+
+    private var isFirstTimeCall = true
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -41,41 +45,82 @@ class IssueFragment : Fragment() {
         observeData()
     }
 
-    private fun initView(){
+    private fun initView() {
         setFilterBar()
         getData()
         setRecyclerView()
     }
 
-    private fun getData(){
+    private fun getData() {
         issueViewModel.updateOptionIndex(0)
-        issueViewModel.getIssues("open")
+        issueViewModel.getIssues()
     }
 
-    private fun setRecyclerView(){
+    private fun setRecyclerView() {
         binding.rvIssueList.apply {
             adapter = issueAdapter
             layoutManager = LinearLayoutManager(requireContext())
+
+            addOnScrollListener(object : RecyclerView.OnScrollListener() {
+
+                override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                    super.onScrollStateChanged(recyclerView, newState)
+
+                    when (newState) {
+                        RecyclerView.SCROLL_STATE_IDLE -> {
+                            PrintLog.printLog("SCROLL_STATE_IDLE")
+                            if (isFirstTimeCall) isFirstTimeCall = false
+                        }
+                        RecyclerView.SCROLL_STATE_DRAGGING -> {
+                            PrintLog.printLog("SCROLL_STATE_DRAGGING")
+                            isFirstTimeCall = true
+                        }
+                        RecyclerView.SCROLL_STATE_SETTLING -> PrintLog.printLog("SCROLL_STATE_SETTLING")
+                    }
+                }
+
+                override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                    super.onScrolled(recyclerView, dx, dy)
+
+                    val layoutManager = binding.rvIssueList.layoutManager
+
+                    if (!binding.rvIssueList.canScrollVertically(1)) {
+                        val lastVisiblePosition =
+                            (layoutManager as LinearLayoutManager).findLastCompletelyVisibleItemPosition()
+                        if(lastVisiblePosition == issueAdapter.itemCount - 1){
+                            if(isFirstTimeCall && issueViewModel.issueState.value != UiState.Loading){
+                                PrintLog.printLog("${issueViewModel.currentPage} page 로드!")
+                                issueViewModel.getIssues()
+                            }
+                        }
+                    }
+
+                }
+            })
         }
     }
 
-    private fun observeData(){
+    private fun observeData() {
         observeOptionData()
         observeIssueData()
     }
 
-    private fun observeIssueData(){
+    private fun observeIssueData() {
         issueViewModel.issueState.observe(viewLifecycleOwner) {
-            when(it){
+            when (it) {
                 is UiState.Loading -> {
-                    // progressbar 추가예정
+                    binding.pbLoading.isVisible = true
                 }
                 is UiState.Success -> {
-                    issueAdapter.submitList(it.data.toList())
-                    binding.rvIssueList.smoothScrollToPosition(0)
+                    binding.pbLoading.isVisible = false
+                    issueViewModel.issueListForUpdate.addAll(it.data)
+                    issueAdapter.submitList(issueViewModel.issueListForUpdate.toList())
+
+                    if(it.data.isNotEmpty()) issueViewModel.currentPage++
                 }
                 is UiState.Error -> {
                     // error 발생 시 처리 예정 -> 토스트 메시지? 스낵바? ...
+                    binding.pbLoading.isVisible = false
                 }
                 is UiState.Empty -> {
 
@@ -84,9 +129,9 @@ class IssueFragment : Fragment() {
         }
     }
 
-    private fun observeOptionData(){
-        issueViewModel.optionIndex.observe(viewLifecycleOwner){
-            when(it){
+    private fun observeOptionData() {
+        issueViewModel.optionIndex.observe(viewLifecycleOwner) {
+            when (it) {
                 0 -> binding.tvOption.text = getString(R.string.issue_menu_open)
                 1 -> binding.tvOption.text = getString(R.string.issue_menu_closed)
                 2 -> binding.tvOption.text = getString(R.string.issue_menu_all)
@@ -120,17 +165,26 @@ class IssueFragment : Fragment() {
                 R.id.option_open -> {
                     PrintLog.printLog("Open")
                     issueViewModel.updateOptionIndex(0)
-                    issueViewModel.getIssues("open")
+                    issueViewModel.clearIssueListForUpdate()
+                    issueViewModel.resetPage()
+                    issueViewModel.currentState = "open"
+                    issueViewModel.getIssues()
                 }
                 R.id.option_closed -> {
                     PrintLog.printLog("Closed")
                     issueViewModel.updateOptionIndex(1)
-                    issueViewModel.getIssues("closed")
+                    issueViewModel.clearIssueListForUpdate()
+                    issueViewModel.resetPage()
+                    issueViewModel.currentState = "closed"
+                    issueViewModel.getIssues()
                 }
                 R.id.option_all -> {
                     PrintLog.printLog("All")
                     issueViewModel.updateOptionIndex(2)
-                    issueViewModel.getIssues("all")
+                    issueViewModel.clearIssueListForUpdate()
+                    issueViewModel.resetPage()
+                    issueViewModel.currentState = "all"
+                    issueViewModel.getIssues()
                 }
             }
             true
