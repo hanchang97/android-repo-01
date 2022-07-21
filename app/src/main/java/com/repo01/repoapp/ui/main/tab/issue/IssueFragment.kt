@@ -52,7 +52,6 @@ class IssueFragment : Fragment() {
     }
 
     private fun getData() {
-        issueViewModel.updateOptionIndex(0)
         issueViewModel.getIssues()
     }
 
@@ -164,27 +163,15 @@ class IssueFragment : Fragment() {
             when (menuItem.itemId) {
                 R.id.option_open -> {
                     PrintLog.printLog("Open")
-                    issueViewModel.updateOptionIndex(0)
-                    issueViewModel.clearIssueListForUpdate()
-                    issueViewModel.resetPage()
-                    issueViewModel.currentState = "open"
-                    issueViewModel.getIssues()
+                    issueViewModel.selectMenu(0)
                 }
                 R.id.option_closed -> {
                     PrintLog.printLog("Closed")
-                    issueViewModel.updateOptionIndex(1)
-                    issueViewModel.clearIssueListForUpdate()
-                    issueViewModel.resetPage()
-                    issueViewModel.currentState = "closed"
-                    issueViewModel.getIssues()
+                    issueViewModel.selectMenu(1)
                 }
                 R.id.option_all -> {
                     PrintLog.printLog("All")
-                    issueViewModel.updateOptionIndex(2)
-                    issueViewModel.clearIssueListForUpdate()
-                    issueViewModel.resetPage()
-                    issueViewModel.currentState = "all"
-                    issueViewModel.getIssues()
+                    issueViewModel.selectMenu(2)
                 }
             }
             true

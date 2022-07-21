@@ -15,7 +15,7 @@ import javax.inject.Inject
 class IssueViewModel @Inject constructor(private val issueRepository: IssueRepository) :
     ViewModel() {
 
-    private val _optionIndex = MutableLiveData<Int>(-1)
+    private val _optionIndex = MutableLiveData<Int>(0)
     val optionIndex: LiveData<Int> = _optionIndex
 
     private val _issueState = MutableLiveData<UiState<List<IssueItemModel>>>()
@@ -24,10 +24,6 @@ class IssueViewModel @Inject constructor(private val issueRepository: IssueRepos
 
     var currentPage = 1
     var currentState = "open"
-
-    fun updateOptionIndex(inx: Int) {
-        _optionIndex.value = inx
-    }
 
     fun getIssues() {
         _issueState.value = UiState.Loading
@@ -42,5 +38,17 @@ class IssueViewModel @Inject constructor(private val issueRepository: IssueRepos
 
     fun clearIssueListForUpdate(){
         issueListForUpdate.clear()
+    }
+
+    fun selectMenu(inx: Int){
+        _optionIndex.value = inx
+        clearIssueListForUpdate()
+        resetPage()
+        currentState = when(inx){
+            0 -> "open"
+            1 -> "closed"
+            else -> "all"
+        }
+        getIssues()
     }
 }
