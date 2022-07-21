@@ -55,13 +55,14 @@
             android:id="@+id/iv_organization"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:src="@drawable/ic_launcher_background"
+            tools:src="@drawable/ic_launcher_background"
             app:layout_constraintBottom_toBottomOf="@id/tv_full_name_and_number"
             app:layout_constraintDimensionRatio="1:1"
             app:layout_constraintStart_toStartOf="@id/gl_vertical_begin"
             app:layout_constraintTop_toTopOf="@id/tv_full_name_and_number"
             app:layout_constraintWidth_percent="0.065"
-            app:shapeAppearanceOverlay="@style/circleImageView" />
+            app:shapeAppearanceOverlay="@style/circleImageView"
+            app:imageUrl="@{notificationsItemModel.orgImageUrl}"/>
 
         <View
             android:id="@+id/view_empty_1"
