@@ -9,11 +9,6 @@ Team 01- 주지혜 &amp; 한창희
 
 <br>
 
-## Demo
-- [데모 영상](https://youtu.be/bz1B4cqKnpY)
-
-<br>
-
 ## Stack
 ### Architecture
 - MVVM Clean Architecture
