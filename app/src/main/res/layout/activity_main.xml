@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="vm"
+            type="com.repo01.repoapp.ui.main.MainViewModel" />
+
+        <variable
+            name="imageUrl"
+            type="String" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/bg_main"
+        tools:context=".ui.main.MainActivity">
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/gl_vertical_begin"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="24dp" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/gl_vertical_end"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:orientation="vertical"
+            app:layout_constraintGuide_end="24dp" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_top_bar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:fontFamily="@font/outfit_semibold"
+                android:maxLines="1"
+                android:text="@string/main_title"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/iv_profile"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginEnd="24dp"
+                app:imageUrl="@{imageUrl}"
+                android:onClick="@{() -> vm.onProfileIconClicked()}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:shapeAppearanceOverlay="@style/circleImageView" />
+
+            <ImageView
+                android:id="@+id/iv_search"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginEnd="24dp"
+                android:scaleType="fitXY"
+                android:onClick="@{() -> vm.onSearchIconClicked()}"
+                android:src="@drawable/ic_search"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/iv_profile"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tl_select"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="#00000000"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/cl_top_bar"
+            app:tabIndicatorHeight="0dp"
+            app:tabMode="fixed"
+            app:tabRippleColor="@null" />
+
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/vp_tab"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tl_select" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

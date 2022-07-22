@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="repoCount"
+            type="Integer" />
+
+        <variable
+            name="starredCount"
+            type="Integer" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_profile_container">
+
+        <View
+            android:id="@+id/view_repository_container"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_margin="16dp"
+            android:background="@drawable/bg_profile_container"
+            android:backgroundTint="@color/primary"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/iv_repository"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/ic_bookmark"
+            app:layout_constraintBottom_toBottomOf="@id/view_repository_container"
+            app:layout_constraintEnd_toEndOf="@id/view_repository_container"
+            app:layout_constraintStart_toStartOf="@id/view_repository_container"
+            app:layout_constraintTop_toTopOf="@id/view_repository_container" />
+
+        <TextView
+            android:id="@+id/tv_repository_count_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:text="@string/profile_repository_count_title"
+            android:textColor="@color/white"
+            app:layout_constraintBottom_toBottomOf="@id/view_repository_container"
+            app:layout_constraintStart_toEndOf="@id/view_repository_container"
+            app:layout_constraintTop_toTopOf="@id/view_repository_container" />
+
+        <TextView
+            android:id="@+id/tv_repository_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:gravity="end"
+            android:text="@{Integer.toString(repoCount)}"
+            android:textColor="@color/white"
+            app:layout_constraintBaseline_toBaselineOf="@id/tv_repository_count_title"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:text="41" />
+
+        <View
+            android:id="@+id/view_starred_container"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_margin="16dp"
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/bg_profile_container"
+            android:backgroundTint="@color/primary"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/view_repository_container" />
+
+        <ImageView
+            android:id="@+id/iv_starred"
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:src="@drawable/ic_starred"
+            app:layout_constraintBottom_toBottomOf="@id/view_starred_container"
+            app:layout_constraintEnd_toEndOf="@id/view_starred_container"
+            app:layout_constraintStart_toStartOf="@id/view_starred_container"
+            app:layout_constraintTop_toTopOf="@id/view_starred_container" />
+
+        <TextView
+            android:id="@+id/tv_starred_count_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:text="@string/profile_starred_count_title"
+            android:textColor="@color/white"
+            app:layout_constraintBottom_toBottomOf="@id/view_starred_container"
+            app:layout_constraintStart_toEndOf="@id/view_starred_container"
+            app:layout_constraintTop_toTopOf="@id/view_starred_container" />
+
+        <TextView
+            android:id="@+id/tv_starred_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:gravity="end"
+            android:text="@{Integer.toString(starredCount)}"
+            android:textColor="@color/white"
+            app:layout_constraintBaseline_toBaselineOf="@id/tv_starred_count_title"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:text="41" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
