@@ -144,7 +144,7 @@ class IssueFragment : Fragment() {
             if (filterBarActivate) {
                 binding.clFilterBar.setBackgroundResource(R.drawable.bg_issue_filter_bar_pressed)
                 binding.ivOption.setImageResource(R.drawable.ic_variant16_up)
-                showMenu(it, R.menu.menu_issue_filter)
+                showMenu(binding.viewMenuAnchor, R.menu.menu_issue_filter)
             } else {
                 binding.clFilterBar.setBackgroundResource(R.drawable.bg_issue_filter_bar_default)
                 binding.ivOption.setImageResource(R.drawable.ic_variant16)
@@ -156,7 +156,9 @@ class IssueFragment : Fragment() {
     // 백그라운드 리소스 교체로 임시 해결
 
     private fun showMenu(v: View, @MenuRes menuRes: Int) {
-        val popup = PopupMenu(requireContext(), v)
+        val wrapperContext = ContextThemeWrapper(requireContext(), R.style.CustomPopup)
+        //val popup = PopupMenu(requireContext(), v)
+        val popup = PopupMenu(wrapperContext, v)
         popup.menuInflater.inflate(menuRes, popup.menu)
 
         popup.setOnMenuItemClickListener { menuItem ->
@@ -187,16 +189,19 @@ class IssueFragment : Fragment() {
 
         when (issueViewModel.optionIndex.value) {
             0 -> {
+                popup.menu.getItem(0).isChecked = true
                 updateOptionSelected(popup.menu.getItem(0), getString(R.string.issue_menu_open))
                 updateOptionUnselected(popup.menu.getItem(1), getString(R.string.issue_menu_closed))
                 updateOptionUnselected(popup.menu.getItem(2), getString(R.string.issue_menu_all))
             }
             1 -> {
+                popup.menu.getItem(1).isChecked = true
                 updateOptionUnselected(popup.menu.getItem(0), getString(R.string.issue_menu_open))
                 updateOptionSelected(popup.menu.getItem(1), getString(R.string.issue_menu_closed))
                 updateOptionUnselected(popup.menu.getItem(2), getString(R.string.issue_menu_all))
             }
             2 -> {
+                popup.menu.getItem(2).isChecked = true
                 updateOptionUnselected(popup.menu.getItem(0), getString(R.string.issue_menu_open))
                 updateOptionUnselected(popup.menu.getItem(1), getString(R.string.issue_menu_closed))
                 updateOptionSelected(popup.menu.getItem(2), getString(R.string.issue_menu_all))
