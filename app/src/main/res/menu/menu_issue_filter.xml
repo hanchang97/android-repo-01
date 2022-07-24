@@ -1,8 +1,11 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:id="@+id/option_open"
-        android:title="@string/issue_menu_open" />
-    <item android:id="@+id/option_closed"
-        android:title="@string/issue_menu_closed" />
-    <item android:id="@+id/option_all"
-        android:title="@string/issue_menu_all" />
+    <group
+        android:checkableBehavior="single">
+        <item android:id="@+id/option_open"
+            android:title="@string/issue_menu_open" />
+        <item android:id="@+id/option_closed"
+            android:title="@string/issue_menu_closed" />
+        <item android:id="@+id/option_all"
+            android:title="@string/issue_menu_all" />
+    </group>
 </menu>
